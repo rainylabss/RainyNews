@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NEWSLY 📰</title>
+<meta name="description" content="NEWSLY — news, facts, games and fun for curious minds.">
+
+<style>
+:root{
+  --bg:#f4f6fb;
+  --card:#fff;
+  --text:#151a28;
+  --muted:#687188;
+  --line:#e2e6ef;
+  --soft:#edf1f9;
+  --accent:#ff3b30;
+  --blue:#3867ff;
+  --green:#19a974;
+  --yellow:#ffc928;
+  --shadow:0 12px 35px rgba(20,30,60,.08);
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body.dark{
+  --bg:#0e1320;
+  --card:#181e2c;
+  --text:#f8f9ff;
+  --muted:#aab2c4;
+  --line:#2d3546;
+  --soft:#242c3d;
+  --shadow:0 12px 35px rgba(0,0,0,.25);
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.topbar{
+  background:var(--text);
+  color:var(--bg);
+  text-align:center;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:800;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+
+.dark header{
+  background:rgba(24,30,44,.94);
+}
+
+.nav{
+  max-width:1250px;
+  margin:auto;
+  padding:13px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:1000;
+  letter-spacing:-1.5px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.logo span{
+  color:var(--accent);
+}
+
+.search{
+  flex:1;
+  display:flex;
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.search input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  padding:12px 14px;
+  background:transparent;
+  color:var(--text);
+}
+
+.search button{
+  border:0;
+  background:transparent;
+  padding:0 15px;
+}
+
+.icon{
+  border:0;
+  background:var(--soft);
+  color:var(--text);
+  padding:11px 13px;
+  border-radius:12px;
+}
+
+.categories{
+  max-width:1250px;
+  margin:auto;
+  padding:0 16px 12px;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+}
+
+.categories button{
+  border:0;
+  background:var(--soft);
+  color:var(--text);
+  padding:9px 14px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+
+.categories button:hover,
+.categories button.active{
+  background:var(--text);
+  color:var(--bg);
+}
+
+main{
+  max-width:1250px;
+  margin:auto;
+  padding:25px 16px 70px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  padding:42px;
+  border-radius:28px;
+  background:linear-gradient(135deg,#dce7ff,#fff);
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
+}
+
+.dark .hero{
+  background:linear-gradient(135deg,#202f54,#1b2130);
+}
+
+.hero h1{
+  font-size:clamp(45px,8vw,82px);
+  line-height:.9;
+  letter-spacing:-4px;
+  margin:0 0 18px;
+}
+
+.hero p{
+  max-width:700px;
+  font-size:20px;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:23px;
+}
+
+.primary,
+.secondary{
+  border:0;
+  border-radius:12px;
+  padding:12px 17px;
+  font-weight:800;
+}
+
+.primary{
+  background:var(--text);
+  color:var(--bg);
+}
+
+.secondary{
+  background:var(--soft);
+  color:var(--text);
+}
+
+.breaking{
+  background:var(--accent);
+  color:white;
+  border-radius:14px;
+  padding:13px 15px;
+  font-weight:800;
+  margin-bottom:25px;
+}
+
+.notice{
+  background:var(--soft);
+  color:var(--muted);
+  padding:13px;
+  border-radius:13px;
+  margin-bottom:25px;
+  font-size:13px;
+}
+
+.title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:30px 0 14px;
+}
+
+.title h2{
+  margin:0;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:21px;
+  overflow:hidden;
+  box-shadow:0 5px 20px rgba(20,30,60,.03);
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
+}
+
+.cardImage{
+  height:175px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:72px;
+  background:var(--soft);
+}
+
+.cardBody{
+  padding:18px;
+}
+
+.tag{
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:20px;
+  background:var(--soft);
+  font-size:11px;
+  font-weight:900;
+}
+
+.card h3{
+  font-size:21px;
+  line-height:1.15;
+  margin:11px 0 8px;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.meta{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.cardButtons{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.cardButtons button{
+  flex:1;
+  border:0;
+  background:var(--soft);
+  color:var(--text);
+  padding:10px;
+  border-radius:10px;
+}
+
+.article{
+  max-width:900px;
+  margin:auto;
+}
+
+.articleHero{
+  background:var(--soft);
+  border-radius:25px;
+  min-height:260px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:110px;
+  margin-top:18px;
+}
+
+.article h1{
+  font-size:clamp(38px,7vw,70px);
+  line-height:1;
+  letter-spacing:-3px;
+}
+
+.articleText{
+  font-size:19px;
+  line-height:1.8;
+}
+
+.explainBox{
+  padding:23px;
+  border-radius:20px;
+  background:#fff1a8;
+  color:#3c3300;
+  margin:30px 0;
+}
+
+.dark .explainBox{
+  background:#4b4419;
+  color:#fff5ad;
+}
+
+.stats{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.stat{
+  flex:1;
+  min-width:130px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:28px;
+}
+
+.arcadeHero{
+  background:linear-gradient(135deg,#1a1e31,#353e67);
+  color:white;
+  border-radius:28px;
+  padding:35px;
+  margin-bottom:20px;
+}
+
+.arcadeHero h1{
+  font-size:clamp(40px,7vw,70px);
+  margin:0;
+  letter-spacing:-3px;
+}
+
+.arcadeHero p{
+  color:#d7ddff;
+  font-size:18px;
+}
+
+.gameGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.game{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:23px;
+  transition:.2s;
+}
+
+.game:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
+}
+
+.gameIcon{
+  font-size:45px;
+}
+
+.game h3{
+  margin-bottom:7px;
+}
+
+.game p{
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.game button{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:12px;
+  background:var(--text);
+  color:var(--bg);
+  font-weight:800;
+}
+
+.gameBox{
+  max-width:700px;
+  margin:auto;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:25px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+
+.answer{
+  width:100%;
+  margin:7px 0;
+  border:0;
+  padding:13px;
+  border-radius:12px;
+  background:var(--soft);
+  color:var(--text);
+  font-weight:700;
+}
+
+.answer:hover{
+  transform:scale(1.01);
+}
+
+.gameQuestion{
+  font-size:25px;
+  line-height:1.3;
+  font-weight:900;
+  margin:20px 0;
+}
+
+.score{
+  font-weight:900;
+  font-size:18px;
+}
+
+.progress{
+  height:10px;
+  background:var(--soft);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress div{
+  height:100%;
+  width:0;
+  background:var(--blue);
+  transition:.3s;
+}
+
+.toolGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:17px;
+}
+
+.tool{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:21px;
+  padding:22px;
+}
+
+.tool input{
+  width:100%;
+  padding:12px;
+  border-radius:11px;
+  border:1px solid var(--line);
+  background:var(--soft);
+  color:var(--text);
+  margin:7px 0 10px;
+}
+
+.fact{
+  font-size:20px;
+  line-height:1.5;
+}
+
+.empty{
+  padding:60px 20px;
+  text-align:center;
+  color:var(--muted);
+}
+
+footer{
+  text-align:center;
+  padding:45px 20px;
+  background:var(--text);
+  color:var(--bg);
+}
+
+@media(max-width:900px){
+  .grid,
+  .gameGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:650px){
+  .nav{
+    flex-wrap:wrap;
+  }
+
+  .search{
+    flex-basis:100%;
+    order:5;
+  }
+
+  .hero{
+    padding:27px;
+  }
+
+  .grid,
+  .gameGrid,
+  .toolGrid{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    letter-spacing:-2px;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="topbar">
+⚡ NEWSLY • NEWS • FACTS • GAMES • FUN
+</div>
+
+
+<header>
+
+<div class="nav">
+
+<div class="logo" onclick="home()">
+<span>NEWS</span>LY 📰
+</div>
+
+<div class="search">
+<input
+id="searchInput"
+placeholder="Search Newsly..."
+onkeydown="if(event.key==='Enter')searchNews()">
+<button onclick="searchNews()">🔎</button>
+</div>
+
+<button class="icon" onclick="showSaved()">❤️</button>
+
+<button class="icon" onclick="toggleDark()">🌙</button>
+
+</div>
+
+
+<div class="categories">
+
+<button class="active" onclick="home()">🏠 Home</button>
+<button onclick="category('WOW')">🤯 WOW!</button>
+<button onclick="category('Animals')">🐾 Animals</button>
+<button onclick="category('Gaming')">🎮 Gaming</button>
+<button onclick="category('Tech')">🤖 Tech</button>
+<button onclick="category('Science')">🧪 Science</button>
+<button onclick="category('World')">🌎 World</button>
+<button onclick="category('Entertainment')">🎬 Entertainment</button>
+<button onclick="category('Sport')">⚽ Sport</button>
+<button onclick="showPage('arcadePage')">🎮 ARCADE</button>
+<button onclick="showPage('funPage')">✨ FUN</button>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- HOME -->
+
+<section id="homePage" class="page active">
+
+<div class="hero">
+
+<h1>News.<br>But actually fun.</h1>
+
+<p>
+The place for curious minds to discover news,
+amazing facts, weird stories, science, gaming,
+animals, sport and loads more.
+</p>
+
+<div class="actions">
+
+<button class="primary"
+onclick="document.getElementById('stories').scrollIntoView()">
+📰 Today's stories
+</button>
+
+<button class="secondary"
+onclick="showPage('arcadePage')">
+🎮 Play games
+</button>
+
+</div>
+
+</div>
+
+
+<div class="breaking">
+🔴 NEWSLY • Welcome to your new favourite news site!
+</div>
+
+
+<div class="notice">
+ℹ️ This version contains demonstration/educational stories.
+For real current news, connect a legitimate news API and
+credit the original sources.
+</div>
+
+
+<div class="title">
+<h2>🔥 Trending on Newsly</h2>
+</div>
+
+<div id="trending" class="grid"></div>
+
+
+<div id="stories" class="title">
+<h2>📰 Today's Newsly</h2>
+</div>
+
+<div id="homeStories" class="grid"></div>
+
+
+<div class="title">
+<h2>🤯 Quick Fact</h2>
+</div>
+
+<div class="tool">
+
+<div id="dailyFact" class="fact"></div>
+
+<br>
+
+<button class="primary" onclick="newFact()">
+Another fact!
+</button>
+
+</div>
+
+
+<div class="title">
+<h2>🏆 Your Newsly Stats</h2>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<strong id="xp">0</strong>
+XP
+</div>
+
+<div class="stat">
+<strong id="streak">0</strong>
+Day streak
+</div>
+
+<div class="stat">
+<strong id="savedCount">0</strong>
+Saved
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CATEGORY -->
+
+<section id="categoryPage" class="page">
+
+<button class="secondary" onclick="home()">← Home</button>
+
+<h1 id="categoryTitle"></h1>
+
+<div id="categoryStories" class="grid"></div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section id="searchPage" class="page">
+
+<button class="secondary" onclick="home()">← Home</button>
+
+<h1>🔎 Search Newsly</h1>
+
+<p id="searchText"></p>
+
+<div id="searchResults" class="grid"></div>
+
+</section>
+
+
+<!-- ARTICLE -->
+
+<section id="articlePage" class="page">
+
+<div class="article">
+
+<button class="secondary" onclick="home()">← Home</button>
+
+<div id="articleContent"></div>
+
+</div>
+
+</section>
+
+
+<!-- SAVED -->
+
+<section id="savedPage" class="page">
+
+<button class="secondary" onclick="home()">← Home</button>
+
+<h1>❤️ Saved Stories</h1>
+
+<div id="savedStories" class="grid"></div>
+
+</section>
+
+
+<!-- ARCADE -->
+
+<section id="arcadePage" class="page">
+
+<div class="arcadeHero">
+
+<h1>🎮 NEWSLY ARCADE</h1>
+
+<p>
+Read it. Learn it. PLAY IT.
+</p>
+
+<div class="stats">
+
+<div class="stat">
+<strong id="arcadeXP">0</strong>
+XP
+</div>
+
+<div class="stat">
+<strong id="arcadeGames">0</strong>
+Games played
+</div>
+
+</div>
+
+</div>
+
+
+<div id="gameMenu" class="gameGrid">
+
+<div class="game">
+<div class="gameIcon">🧠</div>
+<h3>News Quiz</h3>
+<p>Test your knowledge with multiple-choice questions.</p>
+<button onclick="startQuiz()">PLAY</button>
+</div>
+
+
+<div class="game">
+<div class="gameIcon">🃏</div>
+<h3>Fact or Fake?</h3>
+<p>Can you tell what's true?</p>
+<button onclick="startFactGame()">PLAY</button>
+</div>
+
+
+<div class="game">
+<div class="gameIcon">🔤</div>
+<h3>Word Scramble</h3>
+<p>Unscramble the Newsly word.</p>
+<button onclick="startScramble()">PLAY</button>
+</div>
+
+
+<div class="game">
+<div class="gameIcon">😀</div>
+<h3>Emoji News</h3>
+<p>Guess the topic from the emojis.</p>
+<button onclick="startEmoji()">PLAY</button>
+</div>
+
+
+<div class="game">
+<div class="gameIcon">⚡</div>
+<h3>Speed Round</h3>
+<p>Answer as quickly as you can.</p>
+<button onclick="startSpeed()">PLAY</button>
+</div>
+
+
+<div class="game">
+<div class="gameIcon">🏆</div>
+<h3>Achievements</h3>
+<p>See what you've unlocked.</p>
+<button onclick="showAchievements()">OPEN</button>
+</div>
+
+</div>
+
+
+<div id="gameArea"></div>
+
+</section>
+
+
+<!-- FUN -->
+
+<section id="funPage" class="page">
+
+<button class="secondary" onclick="home()">← Home</button>
+
+<h1>✨ Newsly Fun Zone</h1>
+
+<div class="toolGrid">
+
+
+<div class="tool">
+
+<h2>🌦️ Weather</h2>
+
+<p>Check the current temperature for a city.</p>
+
+<input id="cityInput" placeholder="Belfast">
+
+<button class="primary" onclick="weather()">
+Check weather
+</button>
+
+<p id="weatherResult"></p>
+
+</div>
+
+
+<div class="tool">
+
+<h2>🧠 Explain It Simply</h2>
+
+<p>Get a super-simple explanation.</p>
+
+<input id="explainInput" placeholder="What is a black hole?">
+
+<button class="primary" onclick="explain()">
+Explain!
+</button>
+
+<p id="explainResult"></p>
+
+</div>
+
+
+<div class="tool">
+
+<h2>🎲 Random Fact</h2>
+
+<p id="randomFactOutput">
+Press the button for a fact!
+</p>
+
+<button class="primary" onclick="randomFact()">
+Surprise me!
+</button>
+
+</div>
+
+
+<div class="tool">
+
+<h2>📊 Newsly Poll</h2>
+
+<p>What's your favourite section?</p>
+
+<button class="answer" onclick="vote('WOW!')">🤯 WOW!</button>
+<button class="answer" onclick="vote('Animals')">🐾 Animals</button>
+<button class="answer" onclick="vote('Gaming')">🎮 Gaming</button>
+<button class="answer" onclick="vote('Science')">🧪 Science</button>
+
+<p id="voteResult"></p>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<h2>📰 NEWSLY</h2>
+
+<p>The news you'll actually want to read.</p>
+
+<p>Made for curious minds. 🌎</p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   NEWSLY DATA
+========================= */
+
+const stories=[
+
+{
+id:1,
+category:"WOW",
+emoji:"🚀",
+title:"The incredible challenge of travelling through space",
+description:"Space is unbelievably huge, so reaching other worlds takes enormous amounts of planning.",
+text:"Space missions have to deal with huge distances, limited fuel, extreme temperatures and communication delays. Engineers are constantly researching better spacecraft and propulsion systems.",
+explain:"Imagine travelling somewhere that's millions of kilometres away. You'd need a very clever vehicle and a LOT of planning."
+},
+
+{
+id:2,
+category:"Animals",
+emoji:"🐙",
+title:"Octopuses are seriously strange animals",
+description:"Three hearts, eight arms and amazing camouflage are just the beginning.",
+text:"Octopuses are marine animals known for their intelligence and unusual bodies. They can change the appearance of their skin and use their arms to investigate objects around them.",
+explain:"An octopus is like an underwater puzzle-solving expert with eight arms."
+},
+
+{
+id:3,
+category:"Gaming",
+emoji:"🎮",
+title:"How huge video games are actually created",
+description:"A modern game can require hundreds of different skills.",
+text:"Game development can involve programmers, artists, animators, writers, musicians, designers and testers. Large games can take years to develop.",
+explain:"Making a huge game is a bit like making a movie, writing a book and programming a computer all at once."
+},
+
+{
+id:4,
+category:"Tech",
+emoji:"🤖",
+title:"AI is changing how people use computers",
+description:"Artificial intelligence is becoming part of everyday technology.",
+text:"AI systems can process information and recognise patterns. They are being researched and used in areas including education, science, entertainment and business.",
+explain:"AI is software that can find patterns in information and use them to produce useful results."
+},
+
+{
+id:5,
+category:"Science",
+emoji:"🪐",
+title:"Astronomers keep finding planets around other stars",
+description:"These distant worlds are called exoplanets.",
+text:"An exoplanet is a planet outside our Solar System. Astronomers have discovered thousands using different techniques.",
+explain:"An exoplanet is simply a planet that goes around a star other than our Sun."
+},
+
+{
+id:6,
+category:"World",
+emoji:"🌎",
+title:"Why Earth has so many different kinds of weather",
+description:"Sunlight, oceans, air and geography all play a part.",
+text:"Weather is affected by temperature, air pressure, wind, water and Earth's geography. Different places receive different amounts of energy from the Sun.",
+explain:"Think of Earth as a giant weather machine powered by the Sun."
+},
+
+{
+id:7,
+category:"Entertainment",
+emoji:"🎬",
+title:"How movies make sounds that weren't recorded on set",
+description:"Many famous movie sounds are added later.",
+text:"Sound designers can create and record effects after filming. Footsteps, impacts, doors and environmental sounds can all be carefully added during editing.",
+explain:"Sometimes it's easier to make a sound afterwards than try to record it while filming."
+},
+
+{
+id:8,
+category:"Sport",
+emoji:"⚽",
+title:"Why a football can curve through the air",
+description:"Spin can change the path of a moving ball.",
+text:"When a spinning football moves through the air, the airflow around different sides of the ball can produce a force that changes its direction.",
+explain:"Spin changes the airflow around the ball, making its path bend."
+},
+
+{
+id:9,
+category:"WOW",
+emoji:"🌋",
+title:"There are enormous volcanoes beneath the ocean",
+description:"A huge amount of volcanic activity happens underwater.",
+text:"The ocean floor contains extensive volcanic structures. Much of Earth's geological activity occurs beneath the oceans.",
+explain:"There are volcanoes on the seafloor — they're just hidden underwater!"
+},
+
+{
+id:10,
+category:"Animals",
+emoji:"🐝",
+title:"Bees can communicate using a dance",
+description:"Honeybees use movement to tell other bees where food can be found.",
+text:"Honeybees perform a behaviour known as the waggle dance. The direction and duration of the dance can communicate information about food.",
+explain:"A bee can basically give its friends directions by dancing!"
+},
+
+{
+id:11,
+category:"Tech",
+emoji:"📱",
+title:"Your phone is basically a tiny computer",
+description:"Modern smartphones contain processors, sensors, cameras and wireless technology.",
+text:"Smartphones combine computing, communication, photography, sensors and many other technologies inside a small device.",
+explain:"Your phone is a tiny computer that also happens to make calls."
+},
+
+{
+id:12,
+category:"Science",
+emoji:"🦖",
+title:"Dinosaurs lived on Earth for an incredibly long time",
+description:"Non-avian dinosaurs existed for more than 160 million years.",
+text:"Non-avian dinosaurs lived from the Triassic period until their extinction at the end of the Cretaceous period.",
+explain:"Dinosaurs were around for WAY longer than humans have been recording history."
+},
+
+{
+id:13,
+category:"WOW",
+emoji:"⚡",
+title:"Lightning is incredibly hot",
+description:"A lightning bolt can heat the surrounding air to extreme temperatures.",
+text:"Lightning rapidly heats the air around its path. The sudden expansion of that heated air contributes to the sound we hear as thunder.",
+explain:"Thunder happens because lightning heats air extremely quickly, causing it to expand."
+},
+
+{
+id:14,
+category:"Animals",
+emoji:"🦒",
+title:"Giraffes have the same number of neck bones as humans",
+description:"Their necks are much longer, but the number of vertebrae is usually the same.",
+text:"Giraffes typically have seven cervical vertebrae, just like humans. Their individual neck bones are much longer.",
+explain:"A giraffe doesn't need loads more neck bones — it has seven, just like you!"
+},
+
+{
+id:15,
+category:"Gaming",
+emoji:"🕹️",
+title:"Why games use sound effects",
+description:"Sound helps players understand what's happening.",
+text:"Game sound can provide feedback, atmosphere and information. A sound might tell a player that an item was collected or something important is nearby.",
+explain:"Sound is like another way for a game to talk to you."
+},
+
+{
+id:16,
+category:"Science",
+emoji:"🧬",
+title:"DNA is like an instruction system for living things",
+description:"DNA stores biological information.",
+text:"DNA contains genetic information used by living cells. The information helps cells make proteins and carry out biological processes.",
+explain:"DNA is like a huge instruction manual stored inside cells."
+},
+
+{
+id:17,
+category:"World",
+emoji:"🌊",
+title:"Most of Earth's surface is covered by ocean",
+description:"The oceans dominate our planet's surface.",
+text:"Oceans cover roughly 71 percent of Earth's surface and play an important role in climate, ecosystems and the water cycle.",
+explain:"If you could look at Earth from space, you'd see an enormous amount of blue."
+},
+
+{
+id:18,
+category:"Entertainment",
+emoji:"🎵",
+title:"Why music can get stuck in your head",
+description:"Your brain can repeat a catchy musical pattern without you choosing it.",
+text:"An earworm is the experience of having a song or musical phrase repeat in your mind. Catchy repetition can make this especially likely.",
+explain:"Your brain sometimes gets a tiny music loop stuck on repeat!"
+}
+
+];
+
+
+const facts=[
+
+"🦈 Sharks existed before trees.",
+"🐙 Octopuses have three hearts.",
+"🐝 Honeybees can communicate through movement.",
+"🪐 Venus rotates incredibly slowly.",
+"🍌 Bananas are botanically berries.",
+"🦒 Giraffes usually have seven neck vertebrae.",
+"🌊 Oceans cover about 71% of Earth's surface.",
+"🦖 Birds are living dinosaurs in the scientific sense.",
+"⚡ Thunder happens because lightning rapidly heats air.",
+"🐧 Penguins are excellent swimmers.",
+"🌎 Earth is not a perfect sphere.",
+"🌌 Our galaxy contains an enormous number of stars."
+];
+
+
+let xp=Number(localStorage.getItem("newslyXP")||0);
+let games=Number(localStorage.getItem("newslyGames")||0);
+let streak=Number(localStorage.getItem("newslyStreak")||0);
+let favourites=JSON.parse(localStorage.getItem("newslySaved")||"[]");
+
+
+function saveData(){
+
+localStorage.setItem("newslyXP",xp);
+localStorage.setItem("newslyGames",games);
+localStorage.setItem("newslyStreak",streak);
+localStorage.setItem("newslySaved",JSON.stringify(favourites));
+
+updateStats();
+
+}
+
+
+function updateStats(){
+
+document.getElementById("xp").textContent=xp;
+document.getElementById("streak").textContent=streak;
+document.getElementById("savedCount").textContent=favourites.length;
+
+document.getElementById("arcadeXP").textContent=xp;
+document.getElementById("arcadeGames").textContent=games;
+
+}
+
+
+function showPage(id){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+window.scrollTo(0,0);
+
+}
+
+
+function home(){
+
+showPage("homePage");
+renderHome();
+
+}
+
+
+function card(s){
+
+const saved=favourites.includes(s.id);
+
+return `
+
+<article class="card">
+
+<div class="cardImage">${s.emoji}</div>
+
+<div class="cardBody">
+
+<span class="tag">${s.category}</span>
+
+<h3>${s.title}</h3>
+
+<p>${s.description}</p>
+
+<div class="meta">NEWSLY • Educational story</div>
+
+<div class="cardButtons">
+
+<button onclick="openArticle(${s.id})">
+Read →
+</button>
+
+<button onclick="toggleSaved(${s.id})">
+${saved?"❤️ Saved":"♡ Save"}
+</button>
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+}
+
+
+function renderHome(){
+
+document.getElementById("trending").innerHTML=
+stories.slice(5,8).map(card).join("");
+
+document.getElementById("homeStories").innerHTML=
+stories.slice(0,9).map(card).join("");
+
+newFact();
+updateStats();
+
+}
+
+
+function category(cat){
+
+document.getElementById("categoryTitle")
+.textContent="📰 "+cat+" News";
+
+const results=stories.filter(s=>s.category===cat);
+
+document.getElementById("categoryStories")
+.innerHTML=results.map(card).join("");
+
+showPage("categoryPage");
+
+}
+
+
+function searchNews(){
+
+const q=document.getElementById("searchInput")
+.value.trim().toLowerCase();
+
+if(!q)return;
+
+const results=stories.filter(s=>
+`${s.title} ${s.description} ${s.text} ${s.category}`
+.toLowerCase()
+.includes(q)
+);
+
+document.getElementById("searchText")
+.textContent=`Results for "${q}"`;
+
+document.getElementById("searchResults")
+.innerHTML=results.length
+?results.map(card).join("")
+:`<div class="empty">😭 No stories found.<br>Try another search.</div>`;
+
+showPage("searchPage");
+
+}
+
+
+function openArticle(id){
+
+const s=stories.find(x=>x.id===id);
+
+document.getElementById("articleContent").innerHTML=`
+
+<div class="articleHero">${s.emoji}</div>
+
+<br>
+
+<span class="tag">${s.category}</span>
+
+<h1>${s.title}</h1>
+
+<p class="meta">NEWSLY • Educational story</p>
+
+<p class="articleText">
+<strong>${s.description}</strong>
+</p>
+
+<p class="articleText">${s.text}</p>
+
+<div class="explainBox">
+
+<h2>🧠 Explain it like I'm 10</h2>
+
+<p>${s.explain}</p>
+
+</div>
+
+<h2>💡 Why is this interesting?</h2>
+
+<p class="articleText">
+The world is full of things that are more interesting
+than they first appear. Newsly turns complicated topics
+into easy-to-understand stories.
+</p>
+
+<button class="primary"
+onclick="toggleSaved(${s.id})">
+${favourites.includes(s.id)
+?"❤️ Remove from saved"
+:"♡ Save story"}
+</button>
+
+`;
+
+showPage("articlePage");
+
+}
+
+
+function toggleSaved(id){
+
+if(favourites.includes(id))
+favourites=favourites.filter(x=>x!==id);
+else
+favourites.push(id);
+
+saveData();
+
+renderHome();
+
+}
+
+
+function showSaved(){
+
+const results=stories.filter(s=>favourites.includes(s.id));
+
+document.getElementById("savedStories").innerHTML=
+results.length
+?results.map(card).join("")
+:`<div class="empty">
+❤️ No saved stories yet.
+</div>`;
+
+showPage("savedPage");
+
+}
+
+
+function newFact(){
+
+document.getElementById("dailyFact")
+.textContent=facts[Math.floor(Math.random()*facts.length)];
+
+}
+
+
+function randomFact(){
+
+document.getElementById("randomFactOutput")
+.textContent=facts[Math.floor(Math.random()*facts.length)];
+
+}
+
+
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"newslyDark",
+document.body.classList.contains("dark")
+);
+
+}
+
+
+if(localStorage.getItem("newslyDark")==="true")
+document.body.classList.add("dark");
+
+
+/* =========================
+   ARCADE
+========================= */
+
+const quiz=[
+
+{
+q:"Which animal has three hearts?",
+a:["🐶 Dog","🐙 Octopus","🦁 Lion","🐝 Bee"],
+correct:1
+},
+
+{
+q:"What is an exoplanet?",
+a:["A type of star","A planet outside our Solar System","A moon","A galaxy"],
+correct:1
+},
+
+{
+q:"What causes thunder?",
+a:["Clouds shouting","Rapidly heated air from lightning","The Sun","Rain"],
+correct:1
+},
+
+{
+q:"How many neck vertebrae does a giraffe usually have?",
+a:["7","15","2","30"],
+correct:0
+},
+
+{
+q:"What is DNA?",
+a:["A type of weather","Biological genetic information","A planet","A game"],
+correct:1
+}
+
+];
+
+
+let quizIndex=0;
+let quizScore=0;
+
+
+function startQuiz(){
+
+quizIndex=0;
+quizScore=0;
+games++;
+saveData();
+
+showGame();
+
+}
+
+
+function showGame(){
+
+document.getElementById("gameMenu").style.display="none";
+document.getElementById("gameArea").scrollIntoView();
+
+}
+
+
+function quizQuestion(){
+
+if(quizIndex>=quiz.length){
+
+finishGame(
+`🏆 Quiz complete!<br><br>
+You scored ${quizScore}/${quiz.length}!`
+);
+
+return;
+
+}
+
+const q=quiz[quizIndex];
+
+document.getElementById("gameArea").innerHTML=`
+
+<div class="gameBox">
+
+<div class="score">
+Question ${quizIndex+1}/${quiz.length}
+</div>
+
+<div class="progress">
+<div style="width:${(quizIndex/quiz.length)*100}%"></div>
+</div>
+
+<div class="gameQuestion">
+${q.q}
+</div>
+
+${q.a.map((x,i)=>
+`<button class="answer"
+onclick="quizAnswer(${i})">${x}</button>`
+).join("")}
+
+</div>
+
+`;
+
+}
+
+
+function quizAnswer(i){
+
+if(i===quiz[quizIndex].correct){
+quizScore++;
+xp+=20;
+}
+
+quizIndex++;
+saveData();
+quizQuestion();
+
+}
+
+
+function startFactGame(){
+
+games++;
+saveData();
+
+const statements=[
+
+["🐙 Octopuses have three hearts.",true],
+["🦒 Giraffes have 30 neck bones.",false],
+["🌊 Oceans cover most of Earth's surface.",true],
+["🐝 Bees can communicate through movement.",true],
+["🦈 Sharks are younger than trees.",false]
+
+];
+
+let index=0;
+let score=0;
+
+showGame();
+
+function next(){
+
+if(index>=statements.length){
+
+finishGame(`🃏 Fact or Fake complete!<br><br>
+Score: ${score}/${statements.length}`);
+
+return;
+
+}
+
+const s=statements[index];
+
+document.getElementById("gameArea").innerHTML=`
+
+<div class="gameBox">
+
+<div class="gameQuestion">
+${s[0]}
+</div>
+
+<button class="answer" onclick="factAnswer(true)">
+✅ FACT
+</button>
+
+<button class="answer" onclick="factAnswer(false)">
+❌ FAKE
+</button>
+
+</div>`;
+
+window.factData={statements,index,score,next};
+
+}
+
+window.factAnswer=function(answer){
+
+const d=window.factData;
+
+if(answer===d.statements[d.index][1]){
+d.score++;
+xp+=20;
+}
+
+d.index++;
+
+saveData();
+d.next();
+
+};
+
+next();
+
+}
+
+
+const words=[
+"PLANET",
+"SCIENCE",
+"ANIMAL",
+"ROCKET",
+"TECH",
+"SPORT",
+"EARTH",
+"GAMING"
+];
+
+let scrambleWord="";
+let scrambleScore=0;
+
+
+function startScramble(){
+
+games++;
+saveData();
+
+scrambleScore=0;
+
+nextScramble();
+
+showGame();
+
+}
+
+
+function nextScramble(){
+
+scrambleWord=
+words[Math.floor(Math.random()*words.length)];
+
+let mixed=scrambleWord
+.split("")
+.sort(()=>Math.random()-.5)
+.join("");
+
+document.getElementById("gameArea").innerHTML=`
+
+<div class="gameBox">
+
+<h2>🔤 Unscramble this!</h2>
+
+<div class="gameQuestion">
+${mixed}
+</div>
+
+<input id="scrambleInput"
+placeholder="Your answer"
+style="padding:13px;width:100%;border-radius:11px;border:1px solid var(--line);background:var(--soft);color:var(--text)">
+
+<br><br>
+
+<button class="primary"
+onclick="checkScramble()">
+CHECK
+</button>
+
+<p id="scrambleResult"></p>
+
+</div>
+
+`;
+
+}
+
+
+function checkScramble(){
+
+const input=document.getElementById("scrambleInput")
+.value.trim().toUpperCase();
+
+if(input===scrambleWord){
+
+scrambleScore++;
+xp+=20;
+
+document.getElementById("scrambleResult")
+.textContent="🎉 Correct!";
+
+saveData();
+
+setTimeout(nextScramble,600);
+
+}else{
+
+document.getElementById("scrambleResult")
+.textContent="❌ Not quite! Try again.";
+
+}
+
+}
+
+
+function startEmoji(){
+
+games++;
+saveData();
+
+const gameset=[
+
+["🚀🪐⭐","SPACE"],
+["🐝🌼🍯","BEES"],
+["⚽🥅🏆","SPORT"],
+["🎮🕹️👾","GAMING"],
+["🦖🌋🦴","DINOSAURS"]
+
+];
+
+let index=0;
+let score=0;
+
+showGame();
+
+function next(){
+
+if(index>=gameset.length){
+
+finishGame(`😀 Emoji News complete!<br><br>
+Score: ${score}/${gameset.length}`);
+
+return;
+
+}
+
+const item=gameset[index];
+
+document.getElementById("gameArea").innerHTML=`
+
+<div class="gameBox">
+
+<div class="gameQuestion">
+${item[0]}
+</div>
+
+<input id="emojiInput"
+placeholder="What is it?"
+style="padding:13px;width:100%;border-radius:11px;border:1px solid var(--line);background:var(--soft);color:var(--text)">
+
+<br><br>
+
+<button class="primary"
+onclick="emojiAnswer()">
+GUESS
+</button>
+
+<p id="emojiResult"></p>
+
+</div>
+
+`;
+
+window.emojiData={gameset,index,score,next};
+
+}
+
+window.emojiAnswer=function(){
+
+const d=window.emojiData;
+
+const input=document.getElementById("emojiInput")
+.value.trim().toUpperCase();
+
+if(input===d.gameset[d.index][1]){
+
+d.score++;
+xp+=20;
+
+document.getElementById("emojiResult")
+.textContent="🎉 Correct!";
+
+}else{
+
+document.getElementById("emojiResult")
+.textContent=
+`❌ It was ${d.gameset[d.index][1]}`;
+
+}
+
+d.index++;
+saveData();
+
+setTimeout(d.next,700);
+
+};
+
+next();
+
+}
+
+
+function startSpeed(){
+
+games++;
+saveData();
+
+const questions=[
+["Which planet do we live on?","EARTH"],
+["What animal has three hearts?","OCTOPUS"],
+["What do bees make?","HONEY"],
+["What sport uses a football?","FOOTBALL"],
+["What is the name of our galaxy?","MILKY WAY"]
+];
+
+let index=0;
+let score=0;
+let time=10;
+
+showGame();
+
+const timer=setInterval(()=>{
+
+time--;
+
+const t=document.getElementById("timer");
+
+if(t)t.textContent=time;
+
+if(time<=0){
+
+clearInterval(timer);
+
+finishGame(`⏰ Time's up!<br><br>
+Score: ${score}`);
+
+}
+
+},1000);
+
+
+function next(){
+
+if(index>=questions.length){
+
+clearInterval(timer);
+
+finishGame(`⚡ Speed Round complete!<br><br>
+Score: ${score}`);
+
+return;
+
+}
+
+const q=questions[index];
+
+document.getElementById("gameArea").innerHTML=`
+
+<div class="gameBox">
+
+<h2>⚡ Speed Round</h2>
+
+<div id="timer" style="font-size:35px;font-weight:900">
+${time}
+</div>
+
+<div class="gameQuestion">
+${q[0]}
+</div>
+
+<input id="speedInput"
+placeholder="Answer"
+style="padding:13px;width:100%;border-radius:11px;border:1px solid var(--line);background:var(--soft);color:var(--text)">
+
+<br><br>
+
+<button class="primary"
+onclick="speedAnswer()">
+ANSWER
+</button>
+
+</div>
+
+`;
+
+}
+
+window.speedAnswer=function(){
+
+const q=questions[index];
+
+const answer=document.getElementById("speedInput")
+.value.trim().toUpperCase();
+
+if(answer===q[1]){
+
+score++;
+xp+=20;
+
+}
+
+index++;
+saveData();
+next();
+
+};
+
+next();
+
+}
+
+
+function finishGame(message){
+
+document.getElementById("gameArea").innerHTML=`
+
+<div class="gameBox">
+
+<h1>${message}</h1>
+
+<p>🎉 You earned XP!</p>
+
+<button class="primary"
+onclick="backArcade()">
+Back to Arcade
+</button>
+
+</div>
+
+`;
+
+saveData();
+
+}
+
+
+function backArcade(){
+
+document.getElementById("gameMenu").style.display="grid";
+document.getElementById("gameArea").innerHTML="";
+updateStats();
+
+}
+
+
+function showAchievements(){
+
+showGame();
+
+const achievements=[
+
+["🌱","First Steps",xp>=20],
+["🧠","Brainiac",xp>=100],
+["🎮","Arcade Regular",games>=3],
+["🏆","High Scorer",xp>=200],
+["🔥","Newsly Legend",xp>=500]
+
+];
+
+document.getElementById("gameArea").innerHTML=`
+
+<div class="gameBox">
+
+<h1>🏆 Achievements</h1>
+
+${achievements.map(a=>`
+
+<div class="tool" style="margin:10px 0">
+
+<div style="font-size:35px">${a[0]}</div>
+
+<h3>${a[1]}</h3>
+
+<p>${a[2]?"✅ UNLOCKED":"🔒 Locked"}</p>
+
+</div>
+
+`).join("")}
+
+<button class="primary"
+onclick="backArcade()">
+Back
+</button>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   WEATHER
+========================= */
+
+async function weather(){
+
+const city=document.getElementById("cityInput")
+.value.trim();
+
+const output=document.getElementById("weatherResult");
+
+if(!city){
+
+output.textContent="Enter a city first!";
+return;
+
+}
+
+output.textContent="🔎 Finding weather...";
+
+try{
+
+const geo=await fetch(
+`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
+).then(r=>r.json());
+
+if(!geo.results?.length){
+
+output.textContent="😭 City not found.";
+return;
+
+}
+
+const p=geo.results[0];
+
+const data=await fetch(
+`https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&current=temperature_2m,weather_code`
+).then(r=>r.json());
+
+output.innerHTML=`
+
+📍 <strong>${p.name}</strong><br><br>
+
+🌡️ ${data.current.temperature_2m}°C<br><br>
+
+☁️ Weather code: ${data.current.weather_code}
+
+`;
+
+}catch(e){
+
+output.textContent="Something went wrong.";
+
+}
+
+}
+
+
+/* =========================
+   SIMPLE EXPLAINER
+========================= */
+
+function explain(){
+
+const q=document.getElementById("explainInput")
+.value.trim().toLowerCase();
+
+const output=document.getElementById("explainResult");
+
+const answers={
+
+"what is ai":
+"AI is computer software that can recognise patterns in information and produce useful results. 🤖",
+
+"what is gravity":
+"Gravity is the force that pulls objects towards each other. Earth's gravity keeps you on the ground. 🌎",
+
+"what is dna":
+"DNA stores biological information used by living cells. Think of it as an instruction system. 🧬",
+
+"what is space":
+"Space is the enormous region beyond Earth's atmosphere containing stars, planets and galaxies. 🚀",
+
+"what is a black hole":
+"A black hole is an object with gravity so strong that, beyond its event horizon, light cannot escape. 🕳️"
+
+};
+
+output.textContent=
+answers[q]||
+"That's a really interesting question! Newsly doesn't have a special explanation for that one yet, but it's definitely something worth learning about. 🧠";
+
+}
+
+
+function vote(choice){
+
+document.getElementById("voteResult")
+.textContent=`🎉 You voted for ${choice}!`;
+
+xp+=5;
+saveData();
+
+}
+
+
+/* START */
+
+renderHome();
+
+</script>
+
+</body>
+</html>
