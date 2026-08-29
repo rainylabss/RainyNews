@@ -3,852 +3,420 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RainyNews — News for curious minds</title>
-<meta name="description" content="RainyNews — interesting stories, science, technology, animals, gaming, sport and more.">
+<title>RainyNews 📰</title>
 
 <style>
-:root{
-  --ink:#081426;
-  --ink2:#10233d;
-  --blue:#246bff;
-  --sky:#21b8ff;
-  --rain:#6d7cff;
-  --red:#ff385c;
-  --green:#13b981;
-  --gold:#f4c430;
-  --bg:#f4f7fb;
-  --card:#ffffff;
-  --text:#101827;
-  --muted:#667085;
-  --border:#e3e8f0;
-  --shadow:0 12px 35px rgba(8,20,38,.09);
-}
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+font-family:Arial,Helvetica,sans-serif;
+background:#f3f6fb;
+color:#182033;
+line-height:1.5;
 }
-
-button,
-input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-button:active{
-  transform:scale(.98);
-}
-
-/* =========================
-   TOP BAR
-========================= */
-
-.topbar{
-  background:var(--ink);
-  color:white;
-  font-size:12px;
-  font-weight:850;
-  letter-spacing:.5px;
-}
-
-.topbarInner{
-  max-width:1280px;
-  margin:auto;
-  padding:8px 18px;
-  display:flex;
-  justify-content:space-between;
-}
-
-/* =========================
-   HEADER
-========================= */
 
 header{
-  background:white;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  border-bottom:1px solid var(--border);
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(255,255,255,.94);
+backdrop-filter:blur(15px);
+border-bottom:1px solid #e5e9f0;
 }
 
-.headerMain{
-  max-width:1280px;
-  margin:auto;
-  padding:15px 18px;
-  display:flex;
-  align-items:center;
-  gap:20px;
+.nav{
+max-width:1200px;
+margin:auto;
+padding:16px 20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
 }
 
 .logo{
-  border:0;
-  background:transparent;
-  color:var(--ink);
-  font-size:31px;
-  font-weight:1000;
-  letter-spacing:-2.2px;
-  white-space:nowrap;
+font-size:25px;
+font-weight:900;
 }
 
-.logoRain{
-  color:var(--blue);
+nav{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
 }
 
-.logoDot{
-  color:var(--rain);
+nav button,
+button{
+border:0;
+border-radius:12px;
+padding:11px 16px;
+background:#182033;
+color:white;
+font-weight:700;
+cursor:pointer;
 }
 
-.search{
-  flex:1;
-  max-width:600px;
-  display:flex;
-  align-items:center;
-  background:#f1f4f8;
-  border:1px solid var(--border);
-  border-radius:12px;
-  overflow:hidden;
+nav button:hover,
+button:hover{
+transform:translateY(-2px);
 }
-
-.search input{
-  width:100%;
-  border:0;
-  outline:0;
-  background:transparent;
-  padding:12px 14px;
-  color:var(--text);
-}
-
-.search button{
-  border:0;
-  background:transparent;
-  padding:0 15px;
-  font-size:18px;
-}
-
-.headerButtons{
-  margin-left:auto;
-  display:flex;
-  gap:8px;
-}
-
-.smallBtn{
-  border:1px solid var(--border);
-  background:white;
-  color:var(--text);
-  border-radius:10px;
-  padding:9px 12px;
-  font-weight:850;
-}
-
-/* =========================
-   NAVIGATION
-========================= */
-
-.nav{
-  border-top:1px solid var(--border);
-}
-
-.navInner{
-  max-width:1280px;
-  margin:auto;
-  padding:7px 18px;
-  display:flex;
-  gap:4px;
-  overflow-x:auto;
-}
-
-.nav button{
-  border:0;
-  background:transparent;
-  color:#536071;
-  padding:9px 12px;
-  border-radius:8px;
-  white-space:nowrap;
-  font-weight:800;
-}
-
-.nav button:hover{
-  background:#edf3ff;
-  color:var(--blue);
-}
-
-/* =========================
-   MAIN
-========================= */
-
-main{
-  max-width:1280px;
-  margin:auto;
-  padding:28px 18px 80px;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-/* =========================
-   BREAKING
-========================= */
-
-.breaking{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:var(--red);
-  color:white;
-  border-radius:10px;
-  padding:11px 15px;
-  font-weight:850;
-  margin-bottom:24px;
-}
-
-.breakingLabel{
-  background:white;
-  color:var(--red);
-  padding:4px 7px;
-  border-radius:6px;
-  font-size:10px;
-  letter-spacing:.7px;
-}
-
-/* =========================
-   HERO
-========================= */
 
 .hero{
-  display:grid;
-  grid-template-columns:1.55fr .85fr;
-  gap:20px;
+background:
+radial-gradient(circle at 20% 20%,#ccecff,transparent 35%),
+radial-gradient(circle at 80% 30%,#e4d7ff,transparent 35%),
+linear-gradient(135deg,#eaf8ff,#f5efff);
+padding:75px 20px;
+text-align:center;
 }
 
-.heroMain{
-  min-height:470px;
-  border-radius:26px;
-  overflow:hidden;
-  position:relative;
-  display:flex;
-  align-items:flex-end;
-  background:
-    radial-gradient(circle at 80% 10%,rgba(33,184,255,.45),transparent 32%),
-    radial-gradient(circle at 15% 75%,rgba(109,124,255,.35),transparent 30%),
-    linear-gradient(135deg,#071426,#17365e);
-  box-shadow:var(--shadow);
-  color:white;
-}
-
-.rainGraphic{
-  position:absolute;
-  inset:0;
-  opacity:.15;
-  background-image:
-    linear-gradient(115deg,transparent 0 47%,#fff 48%,transparent 49%);
-  background-size:24px 24px;
-  transform:skewX(-15deg);
-}
-
-.heroContent{
-  position:relative;
-  z-index:2;
-  padding:40px;
-  max-width:900px;
-}
-
-.eyebrow{
-  display:inline-block;
-  background:var(--red);
-  color:white;
-  border-radius:6px;
-  padding:7px 10px;
-  font-size:10px;
-  font-weight:950;
-  letter-spacing:.8px;
-  text-transform:uppercase;
+.hero-icon{
+font-size:60px;
 }
 
 .hero h1{
-  font-size:clamp(40px,5vw,70px);
-  line-height:.98;
-  letter-spacing:-3px;
-  margin:15px 0;
+font-size:clamp(45px,8vw,72px);
+margin:8px 0;
 }
 
 .hero p{
-  color:#d7e3f3;
-  line-height:1.55;
-  max-width:650px;
+font-size:19px;
+color:#5f697a;
 }
 
-.primaryBtn{
-  border:0;
-  background:white;
-  color:var(--ink);
-  padding:12px 17px;
-  border-radius:9px;
-  font-weight:950;
-  margin-top:12px;
+.search{
+margin-top:25px;
+width:min(650px,100%);
+padding:17px 22px;
+border:0;
+border-radius:35px;
+font-size:16px;
+box-shadow:0 10px 35px #0001;
+outline:none;
 }
 
-.heroSide{
-  display:grid;
-  gap:14px;
+.container{
+max-width:1200px;
+margin:auto;
+padding:55px 20px;
 }
 
-.quickStory{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:19px;
-  box-shadow:0 5px 18px rgba(8,20,38,.04);
+.breaking{
+background:#182033;
+color:white;
+padding:14px 18px;
+border-radius:15px;
+margin-bottom:35px;
+font-weight:bold;
 }
 
-.quickEmoji{
-  font-size:35px;
+.categories{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:30px;
 }
 
-.category{
-  color:var(--blue);
-  font-size:10px;
-  font-weight:950;
-  letter-spacing:.8px;
-  text-transform:uppercase;
+.categories button{
+background:white;
+color:#182033;
+border:1px solid #e1e6ef;
 }
 
-.quickStory h3{
-  margin:8px 0;
-  font-size:20px;
-  line-height:1.2;
+.categories button.active{
+background:#182033;
+color:white;
 }
 
-.quickStory p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.45;
+.featured{
+background:white;
+border-radius:25px;
+padding:30px;
+margin-bottom:35px;
+box-shadow:0 10px 35px #0001;
 }
 
-/* =========================
-   SECTIONS
-========================= */
-
-.sectionHeader{
-  margin:38px 0 16px;
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
+.featured .tag{
+background:#182033;
+color:white;
 }
 
-.sectionHeader h2{
-  margin:0;
-  font-size:29px;
-  letter-spacing:-1.2px;
+.tag{
+display:inline-block;
+padding:6px 11px;
+border-radius:20px;
+font-size:11px;
+font-weight:800;
+background:#eaf0ff;
 }
 
-.sectionHeader p{
-  margin:5px 0 0;
-  color:var(--muted);
+.featured h2{
+font-size:32px;
+margin:15px 0 8px;
 }
 
-/* =========================
-   STORY CARDS
-========================= */
+.featured p{
+color:#697386;
+}
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
 }
-
-.story{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 6px 22px rgba(8,20,38,.04);
-  transition:.2s ease;
-}
-
-.story:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--shadow);
-}
-
-.visual{
-  height:175px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:72px;
-  background:
-    linear-gradient(135deg,#e9f2ff,#f8fbff);
-}
-
-.storyBody{
-  padding:19px;
-}
-
-.story h3{
-  font-size:21px;
-  line-height:1.2;
-  margin:9px 0;
-}
-
-.story p{
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.actions{
-  display:flex;
-  gap:8px;
-  margin-top:15px;
-}
-
-.actions button{
-  flex:1;
-  border:0;
-  border-radius:9px;
-  padding:10px;
-  font-weight:850;
-  background:#edf2f8;
-  color:var(--text);
-}
-
-.actions button:first-child{
-  background:var(--ink);
-  color:white;
-}
-
-/* =========================
-   FACT
-========================= */
-
-.fact{
-  margin-top:28px;
-  background:#fff4c4;
-  border:1px solid #efd97d;
-  border-radius:19px;
-  padding:23px;
-  display:flex;
-  gap:16px;
-  align-items:center;
-}
-
-.factIcon{
-  font-size:42px;
-}
-
-.fact h3{
-  margin:0 0 5px;
-}
-
-.fact p{
-  margin:0;
-  line-height:1.5;
-}
-
-/* =========================
-   ARTICLE
-========================= */
 
 .article{
-  max-width:860px;
-  margin:auto;
+background:white;
+border-radius:22px;
+padding:24px;
+box-shadow:0 7px 28px #0000000c;
+border:1px solid #edf0f5;
+transition:.25s;
 }
 
-.back{
-  border:0;
-  background:#e9eef5;
-  color:var(--text);
-  padding:10px 14px;
-  border-radius:9px;
-  font-weight:850;
-  margin-bottom:20px;
+.article:hover{
+transform:translateY(-6px);
+box-shadow:0 16px 35px #0002;
 }
 
-.articleVisual{
-  height:310px;
-  border-radius:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:115px;
-  background:linear-gradient(135deg,#e9f2ff,#fff);
+.article-icon{
+font-size:42px;
+margin-bottom:10px;
 }
 
-.article h1{
-  font-size:clamp(40px,6vw,68px);
-  line-height:.98;
-  letter-spacing:-3px;
-  margin:18px 0;
+.article h3{
+font-size:21px;
+margin:10px 0;
 }
 
-.lead{
-  font-size:21px;
-  color:var(--muted);
-  line-height:1.6;
+.article p{
+color:#697386;
+margin-bottom:18px;
 }
 
-.articleText{
-  font-size:18px;
-  line-height:1.85;
+.trending{
+margin-top:60px;
 }
 
-.explain{
-  background:#eaf3ff;
-  border-left:5px solid var(--blue);
-  border-radius:15px;
-  padding:23px;
-  margin:28px 0;
+.trending-item{
+background:white;
+padding:18px;
+border-radius:16px;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+gap:15px;
 }
 
-.explain h2{
-  margin-top:0;
+.number{
+font-size:24px;
+font-weight:900;
 }
-
-/* =========================
-   ARCADE
-========================= */
-
-.arcadeHero{
-  border-radius:25px;
-  padding:42px;
-  color:white;
-  background:
-    radial-gradient(circle at 90% 20%,rgba(33,184,255,.4),transparent 30%),
-    linear-gradient(135deg,#0b1528,#284b80);
-  margin-bottom:22px;
-}
-
-.arcadeHero h1{
-  margin:0;
-  font-size:clamp(43px,7vw,75px);
-  letter-spacing:-3px;
-}
-
-.arcadeHero p{
-  color:#cbd8e9;
-}
-
-.games{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-
-.game{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-}
-
-.gameIcon{
-  font-size:43px;
-}
-
-.game h3{
-  margin-bottom:7px;
-}
-
-.game p{
-  color:var(--muted);
-  line-height:1.45;
-}
-
-.game button{
-  width:100%;
-  border:0;
-  border-radius:9px;
-  padding:11px;
-  background:var(--blue);
-  color:white;
-  font-weight:900;
-}
-
-.gameArea{
-  max-width:700px;
-  margin:22px auto;
-}
-
-.gameBox{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:28px;
-  text-align:center;
-}
-
-.answer{
-  display:block;
-  width:100%;
-  border:0;
-  border-radius:10px;
-  background:#edf2f8;
-  padding:13px;
-  margin:8px 0;
-  font-weight:850;
-}
-
-.gameInput{
-  width:100%;
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:12px;
-  margin:10px 0;
-}
-
-/* =========================
-   ABOUT
-========================= */
-
-.infoBox{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:30px;
-  max-width:850px;
-}
-
-.infoBox p{
-  color:var(--muted);
-  line-height:1.75;
-}
-
-/* =========================
-   FOOTER
-========================= */
 
 footer{
-  background:var(--ink);
-  color:white;
-  padding:45px 20px;
-}
-
-.footerInner{
-  max-width:1280px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:40px;
+background:#182033;
+color:white;
+text-align:center;
+padding:45px 20px;
+margin-top:30px;
 }
 
 footer p{
-  color:#aebdd0;
-  line-height:1.6;
+color:#aeb6c5;
+margin-top:7px;
 }
 
-footer button{
-  display:block;
-  border:0;
-  background:none;
-  color:#c7d4e5;
-  padding:6px 0;
+@media(max-width:700px){
+.nav{
+flex-direction:column;
 }
-
-.footerBottom{
-  max-width:1280px;
-  margin:30px auto 0;
-  padding-top:20px;
-  border-top:1px solid #26364d;
-  color:#91a0b5;
-  font-size:13px;
+.hero{
+padding:55px 18px;
 }
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:900px){
-
-  .hero{
-    grid-template-columns:1fr;
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .games{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .footerInner{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
-@media(max-width:600px){
-
-  .topbarInner{
-    justify-content:center;
-  }
-
-  .topbarInner span:last-child{
-    display:none;
-  }
-
-  .headerMain{
-    flex-wrap:wrap;
-  }
-
-  .logo{
-    font-size:27px;
-  }
-
-  .search{
-    order:5;
-    flex-basis:100%;
-    max-width:none;
-  }
-
-  main{
-    padding:20px 12px 60px;
-  }
-
-  .heroContent{
-    padding:26px;
-  }
-
-  .hero h1{
-    letter-spacing:-2px;
-  }
-
-  .grid,
-  .games{
-    grid-template-columns:1fr;
-  }
-
-  .fact{
-    align-items:flex-start;
-  }
-
-  .footerInner{
-    grid-template-columns:1fr;
-  }
-
-  .articleVisual{
-    height:220px;
-    font-size:85px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     TOP
-========================= -->
-
-<div class="topbar">
-  <div class="topbarInner">
-    <span>RAINYNEWS • NEWS FOR CURIOUS MINDS</span>
-    <span>FRESH • FUN • SIMPLE</span>
-  </div>
-</div>
-
-
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
-
-<div class="headerMain">
-
-<button class="logo" onclick="goHome()">
-  <span class="logoRain">RAINY</span>NEWS<span class="logoDot">.</span>
-</button>
-
-<div class="search">
-  <input
-    id="searchInput"
-    placeholder="Search RainyNews..."
-    onkeydown="if(event.key==='Enter') searchNews()"
-  >
-  <button onclick="searchNews()">🔎</button>
-</div>
-
-<div class="headerButtons">
-  <button class="smallBtn" onclick="showSaved()">♡</button>
-  <button class="smallBtn" onclick="toggleDark()">◐</button>
-</div>
-
-</div>
-
-
 <div class="nav">
 
-<div class="navInner">
+<div class="logo">📰 RainyNews</div>
 
-<button onclick="goHome()">Home</button>
-<button onclick="category('World')">World</button>
-<button onclick="category('Science')">Science</button>
-<button onclick="category('Technology')">Technology</button>
-<button onclick="category('Animals')">Animals</button>
-<button onclick="category('Gaming')">Gaming</button>
-<button onclick="category('Sport')">Sport</button>
-<button onclick="category('WOW!')">WOW!</button>
-<button onclick="showPage('arcadePage')">🎮 Arcade</button>
-<button onclick="showPage('aboutPage')">About</button>
+<nav>
+<button onclick="location.href='https://rainylabs21.github.io/RainyDayLabs/'">🌧️ RainyDayLabs</button>
+<button onclick="location.href='https://rainylabs21.github.io/RainyEmps/'">💼 RainyEmps</button>
+</nav>
 
 </div>
-
-</div>
-
 </header>
 
+<section class="hero">
 
-<main>
+<div class="hero-icon">📰🌧️</div>
 
-<!-- =========================
-     HOME
-========================= -->
+<h1>RainyNews</h1>
 
-<section id="homePage" class="page active">
+<p>Interesting stories. Trending topics. RainyDayLabs news.</p>
+
+<input
+id="search"
+class="search"
+placeholder="🔎 Search RainyNews..."
+>
+
+</section>
+
+<main class="container">
 
 <div class="breaking">
-  <span class="breakingLabel">RAINYNEWS</span>
-  Welcome to RainyNews — interesting stories without the boring bits.
+🚨 BREAKING: Welcome to the upgraded RainyNews!
+</div>
+
+<div class="categories">
+
+<button class="active" onclick="filterNews('all',this)">All</button>
+<button onclick="filterNews('tech',this)">💻 Technology</button>
+<button onclick="filterNews('games',this)">🎮 Gaming</button>
+<button onclick="filterNews('business',this)">💼 Business</button>
+<button onclick="filterNews('fun',this)">✨ Fun</button>
+<button onclick="filterNews('nature',this)">🌿 Nature</button>
+
+</div>
+
+<section class="featured">
+
+<span class="tag">⭐ FEATURED</span>
+
+<h2>RainyDayLabs keeps growing!</h2>
+
+<p>
+RainyDayLabs is expanding with games, news, baking,
+DIY, nature and loads of new ideas.
+</p>
+
+<br>
+
+<button onclick="readStory('RainyDayLabs keeps growing!')">
+Read story
+</button>
+
+</section>
+
+<h2 style="margin-bottom:20px">📰 Latest Stories</h2>
+
+<div class="grid" id="articles">
+
+<div class="article" data-category="games">
+
+<div class="article-icon">🎮</div>
+
+<span class="tag">GAMING</span>
+
+<h3>Gaming is getting bigger</h3>
+
+<p>
+Discover games, gaming ideas and projects worth checking out.
+</p>
+
+<button onclick="readStory('Gaming is getting bigger')">
+Read story
+</button>
+
 </div>
 
 
-<div class="hero">
+<div class="article" data-category="tech">
 
-<div class="heroMain">
+<div class="article-icon">🤖</div>
 
-<div class="rainGraphic"></div>
+<span class="tag">TECH</span>
 
-<div class="heroContent">
-
-<div class="eyebrow">🌧️ Welcome to RainyNews</div>
-
-<h1>News worth opening your browser for.</h1>
+<h3>AI keeps evolving</h3>
 
 <p>
-Interesting stories, amazing facts, science, technology,
-animals, gaming and more — all in one place.
+Artificial intelligence continues to become part of everyday technology.
 </p>
 
-<button class="primaryBtn" onclick="openArticle(1)">
-Read today's feature →
+<button onclick="readStory('AI keeps evolving')">
+Read story
+</button>
+
+</div>
+
+
+<div class="article" data-category="business">
+
+<div class="article-icon">💼</div>
+
+<span class="tag">BUSINESS</span>
+
+<h3>Young entrepreneurs</h3>
+
+<p>
+New businesses and online projects are being created every day.
+</p>
+
+<button onclick="readStory('Young entrepreneurs')">
+Read story
+</button>
+
+</div>
+
+
+<div class="article" data-category="fun">
+
+<div class="article-icon">🎲</div>
+
+<span class="tag">FUN</span>
+
+<h3>Things to do on a rainy day</h3>
+
+<p>
+Games, baking, crafts and other ideas for rainy days.
+</p>
+
+<button onclick="readStory('Things to do on a rainy day')">
+Read story
+</button>
+
+</div>
+
+
+<div class="article" data-category="nature">
+
+<div class="article-icon">🌿</div>
+
+<span class="tag">NATURE</span>
+
+<h3>Explore the outdoors</h3>
+
+<p>
+Discover interesting plants, animals and outdoor activities.
+</p>
+
+<button onclick="readStory('Explore the outdoors')">
+Read story
+</button>
+
+</div>
+
+
+<div class="article" data-category="tech">
+
+<div class="article-icon">📱</div>
+
+<span class="tag">TECH</span>
+
+<h3>Apps are changing</h3>
+
+<p>
+Modern apps are becoming more creative and interactive.
+</p>
+
+<button onclick="readStory('Apps are changing')">
+Read story
 </button>
 
 </div>
@@ -856,1371 +424,92 @@ Read today's feature →
 </div>
 
 
-<div class="heroSide" id="heroSide"></div>
+<section class="trending">
 
-</div>
-
-
-<div class="sectionHeader">
-
-<div>
 <h2>🔥 Trending</h2>
-<p>Popular stories across RainyNews.</p>
+
+<br>
+
+<div class="trending-item">
+<span><span class="number">1</span> 🎮 RainyEmps</span>
+<strong>GAME</strong>
 </div>
 
+<div class="trending-item">
+<span><span class="number">2</span> 🌧️ RainyDayLabs</span>
+<strong>TRENDING</strong>
 </div>
 
-<div id="trending" class="grid"></div>
-
-
-<div class="fact">
-
-<div class="factIcon">💡</div>
-
-<div style="flex:1">
-<h3>RainyNews Daily Fact</h3>
-<p id="factText"></p>
+<div class="trending-item">
+<span><span class="number">3</span> 🤖 AI</span>
+<strong>TECH</strong>
 </div>
 
-<button class="smallBtn" onclick="newFact()">Another</button>
-
-</div>
-
-
-<div class="sectionHeader">
-
-<div>
-<h2>📰 Latest stories</h2>
-<p>Explore the RainyNews collection.</p>
-</div>
-
-</div>
-
-<div id="latest" class="grid"></div>
-
-</section>
-
-
-<!-- =========================
-     CATEGORY
-========================= -->
-
-<section id="categoryPage" class="page">
-
-<button class="back" onclick="goHome()">← Back to home</button>
-
-<h1 id="categoryTitle"></h1>
-
-<p id="categoryDescription"></p>
-
-<div id="categoryGrid" class="grid"></div>
-
-</section>
-
-
-<!-- =========================
-     SEARCH
-========================= -->
-
-<section id="searchPage" class="page">
-
-<button class="back" onclick="goHome()">← Back to home</button>
-
-<h1>Search RainyNews</h1>
-
-<p id="searchDescription"></p>
-
-<div id="searchGrid" class="grid"></div>
-
-</section>
-
-
-<!-- =========================
-     ARTICLE
-========================= -->
-
-<section id="articlePage" class="page">
-
-<div class="article">
-
-<button class="back" onclick="goHome()">← Back to RainyNews</button>
-
-<div id="articleContent"></div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     SAVED
-========================= -->
-
-<section id="savedPage" class="page">
-
-<button class="back" onclick="goHome()">← Back to home</button>
-
-<h1>♡ Saved stories</h1>
-
-<p>Stories you've saved on this device.</p>
-
-<div id="savedGrid" class="grid"></div>
-
-</section>
-
-
-<!-- =========================
-     ARCADE
-========================= -->
-
-<section id="arcadePage" class="page">
-
-<div class="arcadeHero">
-
-<h1>RAINYNEWS ARCADE 🎮</h1>
-
-<p>
-Take a break from the headlines and test your brain.
-</p>
-
-</div>
-
-
-<div class="games">
-
-<div class="game">
-<div class="gameIcon">🧠</div>
-<h3>News Quiz</h3>
-<p>Test what you've learned.</p>
-<button onclick="startQuiz()">PLAY</button>
-</div>
-
-<div class="game">
-<div class="gameIcon">🃏</div>
-<h3>Fact or Fake?</h3>
-<p>Can you spot the fake?</p>
-<button onclick="startFactGame()">PLAY</button>
-</div>
-
-<div class="game">
-<div class="gameIcon">🔤</div>
-<h3>Word Scramble</h3>
-<p>Unscramble the word.</p>
-<button onclick="startScramble()">PLAY</button>
-</div>
-
-<div class="game">
-<div class="gameIcon">😀</div>
-<h3>Emoji News</h3>
-<p>Guess the topic.</p>
-<button onclick="startEmoji()">PLAY</button>
-</div>
-
-</div>
-
-<div id="gameArea" class="gameArea"></div>
-
-</section>
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section id="aboutPage" class="page">
-
-<div class="infoBox">
-
-<h1>About RainyNews</h1>
-
-<p>
-RainyNews is an independent news-style website project designed
-to make interesting topics easier and more enjoyable to explore.
-</p>
-
-<h2>🌧️ Why RainyNews?</h2>
-
-<p>
-Traditional news can sometimes feel overwhelming or boring.
-RainyNews is designed around simple explanations, interesting
-topics and a fun browsing experience.
-</p>
-
-<h2>🔎 Important</h2>
-
-<p>
-The stories currently included in this website are demo/editorial
-content rather than a live news feed. Important or breaking news
-should always be checked against reliable news organisations and
-official sources.
-</p>
-
-<h2>🚀 What's next?</h2>
-
-<p>
-RainyNews can eventually grow with live news feeds, more categories,
-more games, article publishing tools, weather information and much more.
-</p>
-
+<div class="trending-item">
+<span><span class="number">4</span> 🧁 Baking</span>
+<strong>FUN</strong>
 </div>
 
 </section>
 
 </main>
 
-
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer>
 
-<div class="footerInner">
+<h2>📰 RainyNews</h2>
 
-<div>
-<h2>RAINYNEWS.</h2>
+<p>Part of the RainyDayLabs universe 🌧️</p>
 
-<p>
-News for curious minds.
-Interesting stories, facts and games.
-</p>
-
-</div>
-
-
-<div>
-
-<h3>Explore</h3>
-
-<button onclick="goHome()">Home</button>
-<button onclick="category('Science')">Science</button>
-<button onclick="category('Technology')">Technology</button>
-<button onclick="category('Animals')">Animals</button>
-
-</div>
-
-
-<div>
-
-<h3>More</h3>
-
-<button onclick="showPage('arcadePage')">🎮 Arcade</button>
-<button onclick="showSaved()">♡ Saved</button>
-<button onclick="showPage('aboutPage')">About</button>
-
-</div>
-
-</div>
-
-
-<div class="footerBottom">
-© 2026 RainyNews • An independent website project.
-</div>
+<p style="margin-top:20px">© 2026 RainyNews</p>
 
 </footer>
 
 
 <script>
 
-/* =========================
-   STORY DATA
-========================= */
+function filterNews(category,button){
 
-const stories=[
+document.querySelectorAll(".categories button")
+.forEach(b=>b.classList.remove("active"));
 
-{
-id:1,
-category:"WOW!",
-emoji:"🌌",
-title:"The universe is much bigger than it looks",
-description:"Space contains an enormous number of stars and galaxies.",
-body:[
-"Look up at the night sky and it can feel like there are only a few stars. In reality, the observable universe contains an enormous number of galaxies, each containing huge numbers of stars.",
-"Scientists use powerful telescopes to study distant galaxies and learn about how the universe has changed over time."
-],
-explain:"The universe is so huge that even nearby stars outside our Solar System are incredibly far away."
-},
+button.classList.add("active");
 
-{
-id:2,
-category:"Animals",
-emoji:"🐙",
-title:"Octopuses have three hearts",
-description:"One of the ocean's strangest animals has a surprisingly complicated body.",
-body:[
-"An octopus has three hearts. Two pump blood toward the gills, while another pumps blood around the rest of the body.",
-"Octopuses are also famous for their intelligence, flexible bodies and ability to change the appearance of their skin."
-],
-explain:"Three hearts, eight arms and an incredibly unusual body."
-},
+document.querySelectorAll(".article").forEach(article=>{
 
-{
-id:3,
-category:"Science",
-emoji:"🧬",
-title:"DNA is like a biological instruction book",
-description:"DNA stores genetic information used by living cells.",
-body:[
-"DNA is a molecule that stores genetic information. Sections of DNA contain instructions that cells use during biological processes.",
-"Scientists study DNA to understand inheritance, development and how living organisms work."
-],
-explain:"Think of DNA as a giant set of biological instructions stored inside cells."
-},
-
-{
-id:4,
-category:"Technology",
-emoji:"🤖",
-title:"AI is changing everyday technology",
-description:"Artificial intelligence is appearing in more tools and services.",
-body:[
-"Artificial intelligence describes computer systems designed to perform tasks involving things such as pattern recognition, prediction or generating content.",
-"Different AI systems are used for different purposes, from analysing information to assisting with creative work."
-],
-explain:"AI isn't one single machine. It's a huge collection of different computer techniques."
-},
-
-{
-id:5,
-category:"Gaming",
-emoji:"🎮",
-title:"Making a huge video game takes a massive team",
-description:"Modern games can involve artists, programmers, writers and testers.",
-body:[
-"A large video game can require many different skills. Programmers build systems, artists create visual assets, designers create gameplay and writers may create characters and stories.",
-"Testing is also important because games need to be checked for bugs and problems before release."
-],
-explain:"Making a giant game can be like making a movie, designing a world and building a computer program at the same time."
-},
-
-{
-id:6,
-category:"World",
-emoji:"🌍",
-title:"Why does Earth have seasons?",
-description:"Earth's tilt plays a major role in creating seasonal changes.",
-body:[
-"Earth's axis is tilted. As our planet travels around the Sun, the angle at which sunlight reaches different parts of Earth changes during the year.",
-"This contributes to the seasons experienced in different parts of the world."
-],
-explain:"Earth isn't perfectly upright as it travels around the Sun — it is tilted."
-},
-
-{
-id:7,
-category:"Sport",
-emoji:"⚽",
-title:"Why can a football curve through the air?",
-description:"Spin can change the path of a moving ball.",
-body:[
-"When a ball spins while moving through air, the airflow around it can become uneven. This can create a sideways force that changes its path.",
-"Players can use this effect to make the ball bend around obstacles."
-],
-explain:"Spin can make the air push the ball sideways."
-},
-
-{
-id:8,
-category:"Animals",
-emoji:"🐝",
-title:"Bees can use movement to communicate",
-description:"Honeybees have an amazing way of sharing information.",
-body:[
-"Honeybees can perform a behaviour called the waggle dance. The movement can communicate information about the direction of a food source.",
-"This is one fascinating way social insects exchange information."
-],
-explain:"A bee can essentially give another bee directions using movement."
-},
-
-{
-id:9,
-category:"Science",
-emoji:"⚡",
-title:"What actually causes thunder?",
-description:"Thunder is linked to the rapid heating caused by lightning.",
-body:[
-"Lightning can heat the surrounding air extremely quickly. The heated air expands suddenly, creating a pressure wave.",
-"We hear that pressure wave as thunder."
-],
-explain:"Lightning rapidly heats air → the air expands → the expansion creates sound."
-},
-
-{
-id:10,
-category:"Technology",
-emoji:"📱",
-title:"Why do websites need responsive design?",
-description:"Websites have to work across many different screen sizes.",
-body:[
-"People browse websites on phones, tablets, laptops and desktop computers. Responsive layouts allow content to rearrange itself depending on the screen.",
-"This keeps buttons, text and cards usable across different devices."
-],
-explain:"A responsive website automatically adapts its layout to fit different screens."
-},
-
-{
-id:11,
-category:"WOW!",
-emoji:"🌊",
-title:"Most of Earth's surface is covered by ocean",
-description:"Our planet looks blue for a very good reason.",
-body:[
-"Ocean covers roughly 71% of Earth's surface. It plays a huge role in Earth's climate and supports enormous numbers of living organisms.",
-"Despite covering so much of the planet, large parts of the deep ocean remain difficult to explore."
-],
-explain:"Earth has a LOT more ocean than land."
-},
-
-{
-id:12,
-category:"Animals",
-emoji:"🦒",
-title:"Giraffes have surprisingly few neck bones",
-description:"Their necks use the same basic number of vertebrae found in humans.",
-body:[
-"Giraffes usually have seven cervical vertebrae in their neck, just like humans.",
-"The difference is that each vertebra is extremely elongated, helping create the giraffe's famous long neck."
-],
-explain:"Same basic number of neck bones — dramatically different size."
-},
-
-{
-id:13,
-category:"Gaming",
-emoji:"🕹️",
-title:"Game audio is more important than you might think",
-description:"Sound can tell players what is happening without showing it.",
-body:[
-"Game designers use sounds to communicate events such as movement, danger, rewards and actions.",
-"Music can also influence the mood of a game and help make certain moments memorable."
-],
-explain:"Sometimes your ears are basically giving you another screen of information."
-},
-
-{
-id:14,
-category:"World",
-emoji:"🗺️",
-title:"Maps have changed dramatically over time",
-description:"Modern maps use satellites, computers and huge amounts of data.",
-body:[
-"Maps have been used for thousands of years, but modern mapping technology can combine satellite imagery, GPS and digital geographic information.",
-"This allows people to navigate places in real time."
-],
-explain:"Your phone can carry a constantly updating digital map of the world."
-},
-
-{
-id:15,
-category:"Science",
-emoji:"🪐",
-title:"Thousands of planets have been found outside our Solar System",
-description:"These worlds are called exoplanets.",
-body:[
-"An exoplanet is a planet that orbits a star outside our Solar System.",
-"Astronomers have discovered thousands of confirmed exoplanets using different observing techniques."
-],
-explain:"Exoplanet simply means 'planet outside our Solar System.'"
-},
-
-{
-id:16,
-category:"WOW!",
-emoji:"🌋",
-title:"Volcanoes can create completely new land",
-description:"Volcanic eruptions can add new rock to Earth's surface.",
-body:[
-"When lava cools and hardens, it becomes solid rock. Over long periods, volcanic activity can build mountains and even new land.",
-"Some islands have formed through volcanic activity beneath the ocean."
-],
-explain:"Hot lava can cool into rock — and enough rock can eventually build land."
+if(category==="all" || article.dataset.category===category){
+article.style.display="";
+}else{
+article.style.display="none";
 }
 
-];
-
-
-/* =========================
-   FACTS
-========================= */
-
-const facts=[
-"Sharks existed before trees.",
-"Octopuses have three hearts.",
-"Earth's oceans cover roughly 71% of its surface.",
-"Lightning can heat surrounding air extremely quickly.",
-"Giraffes usually have seven neck vertebrae.",
-"Bees can communicate information through movement.",
-"An exoplanet is a planet outside our Solar System.",
-"DNA stores genetic information.",
-"Earth's axis is tilted.",
-"Spin can change the path of a ball moving through air.",
-"Large video games can involve many different specialist roles.",
-"Modern websites can adapt to different screen sizes."
-];
-
-
-/* =========================
-   SAVED STORIES
-========================= */
-
-let saved=JSON.parse(
-  localStorage.getItem("rainyNewsSaved") || "[]"
-);
-
-let dark=localStorage.getItem("rainyNewsDark")==="1";
-
-
-/* =========================
-   PAGE CONTROL
-========================= */
-
-function showPage(id){
-
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active");
-});
-
-document.getElementById(id).classList.add("active");
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
 });
 
 }
 
-
-function goHome(){
-
-showPage("homePage");
-
-renderHome();
-
-}
-
-
-/* =========================
-   STORY CARD
-========================= */
-
-function card(story){
-
-const savedNow=saved.includes(story.id);
-
-return `
-
-<article class="story">
-
-<div class="visual">
-${story.emoji}
-</div>
-
-<div class="storyBody">
-
-<div class="category">
-${story.category}
-</div>
-
-<h3>
-${story.title}
-</h3>
-
-<p>
-${story.description}
-</p>
-
-<div class="actions">
-
-<button onclick="openArticle(${story.id})">
-Read story
-</button>
-
-<button onclick="toggleSaved(${story.id})">
-${savedNow?"♥ Saved":"♡ Save"}
-</button>
-
-</div>
-
-</div>
-
-</article>
-
-`;
-
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-function renderHome(){
-
-document.getElementById("trending").innerHTML=
-stories.slice(1,7).map(card).join("");
-
-
-document.getElementById("latest").innerHTML=
-stories.slice(0,12).map(card).join("");
-
-
-document.getElementById("heroSide").innerHTML=
-stories.slice(1,4).map(s=>`
-
-<div class="quickStory">
-
-<div class="quickEmoji">
-${s.emoji}
-</div>
-
-<div class="category">
-${s.category}
-</div>
-
-<h3>
-${s.title}
-</h3>
-
-<p>
-${s.description}
-</p>
-
-<br>
-
-<button
-class="smallBtn"
-onclick="openArticle(${s.id})">
-Read →
-</button>
-
-</div>
-
-`).join("");
-
-
-newFact();
-
-}
-
-
-/* =========================
-   ARTICLES
-========================= */
-
-function openArticle(id){
-
-const story=stories.find(s=>s.id===id);
-
-if(!story)return;
-
-document.getElementById("articleContent").innerHTML=`
-
-<div class="articleVisual">
-${story.emoji}
-</div>
-
-<br>
-
-<div class="category">
-${story.category}
-</div>
-
-<h1>
-${story.title}
-</h1>
-
-<p class="lead">
-${story.description}
-</p>
-
-${story.body.map(p=>`
-<p class="articleText">${p}</p>
-`).join("")}
-
-<div class="explain">
-
-<h2>🧠 Explain it simply</h2>
-
-<p>
-${story.explain}
-</p>
-
-</div>
-
-<button
-class="smallBtn"
-onclick="toggleSaved(${story.id})">
-
-${saved.includes(story.id)
-?"♥ Remove from saved"
-:"♡ Save this story"}
-
-</button>
-
-`;
-
-showPage("articlePage");
-
-}
-
-
-/* =========================
-   SAVED
-========================= */
-
-function toggleSaved(id){
-
-if(saved.includes(id)){
-saved=saved.filter(x=>x!==id);
-}else{
-saved.push(id);
-}
-
-localStorage.setItem(
-"rainyNewsSaved",
-JSON.stringify(saved)
-);
-
-renderHome();
-
-if(
-document.getElementById("articlePage").classList.contains("active")
-){
-openArticle(id);
-}
-
-if(
-document.getElementById("savedPage").classList.contains("active")
-){
-renderSaved();
-}
-
-}
-
-
-function showSaved(){
-
-renderSaved();
-
-showPage("savedPage");
-
-}
-
-
-function renderSaved(){
-
-const results=stories.filter(
-s=>saved.includes(s.id)
-);
-
-document.getElementById("savedGrid").innerHTML=
-
-results.length
-?results.map(card).join("")
-:`
-
-<div class="infoBox">
-
-<h2>No saved stories yet.</h2>
-
-<p>
-Tap ♡ Save on a story to keep it here.
-</p>
-
-</div>
-
-`;
-
-}
-
-
-/* =========================
-   CATEGORIES
-========================= */
-
-function category(name){
-
-const results=stories.filter(
-s=>s.category===name
-);
-
-document.getElementById("categoryTitle")
-.textContent=name;
-
-document.getElementById("categoryDescription")
-.textContent=
-`${results.length} RainyNews stories in ${name}.`;
-
-document.getElementById("categoryGrid").innerHTML=
-results.length
-?results.map(card).join("")
-:`<p>No stories in this category yet.</p>`;
-
-showPage("categoryPage");
-
-}
-
-
-/* =========================
-   SEARCH
-========================= */
-
-function searchNews(){
-
-const query=document
-.getElementById("searchInput")
-.value
-.trim()
-.toLowerCase();
-
-if(!query)return;
-
-const results=stories.filter(s=>
-
-`${s.title}
-${s.description}
-${s.category}
-${s.body.join(" ")}`
-.toLowerCase()
-.includes(query)
-
-);
-
-document.getElementById("searchDescription")
-.textContent=
-`${results.length} result${results.length===1?"":"s"} for "${query}"`;
-
-document.getElementById("searchGrid").innerHTML=
-
-results.length
-?results.map(card).join("")
-:`
-
-<div class="infoBox">
-
-<h2>No results found 😭</h2>
-
-<p>
-Try science, gaming, animals, technology,
-sport or another topic.
-</p>
-
-</div>
-
-`;
-
-showPage("searchPage");
-
-}
-
-
-/* =========================
-   FACTS
-========================= */
-
-function newFact(){
-
-document.getElementById("factText")
-.textContent=
-facts[Math.floor(Math.random()*facts.length)];
-
-}
-
-
-/* =========================
-   DARK MODE
-========================= */
-
-function toggleDark(){
-
-dark=!dark;
-
-document.body.style.background=
-dark?"#071426":"";
-
-document.documentElement
-.style
-.setProperty(
-"--bg",
-dark?"#071426":"#f4f7fb"
-);
-
-document.documentElement
-.style
-.setProperty(
-"--card",
-dark?"#102033":"#ffffff"
-);
-
-document.documentElement
-.style
-.setProperty(
-"--text",
-dark?"#f5f8fc":"#101827"
-);
-
-document.documentElement
-.style
-.setProperty(
-"--muted",
-dark?"#aebbd0":"#667085"
-);
-
-document.documentElement
-.style
-.setProperty(
-"--border",
-dark?"#253850":"#e3e8f0"
-);
-
-localStorage.setItem(
-"rainyNewsDark",
-dark?"1":"0"
+function readStory(title){
+
+alert(
+"📰 "+title+
+"\n\nThis is a RainyNews story preview. "+
+"More detailed stories can be added here later!"
 );
 
 }
 
+document.getElementById("search").addEventListener("input",function(){
 
-/* =========================
-   QUIZ
-========================= */
+const query=this.value.toLowerCase();
 
-const quizQuestions=[
+document.querySelectorAll(".article").forEach(article=>{
 
-{
-q:"Which animal has three hearts?",
-a:["🐶 Dog","🐙 Octopus","🐱 Cat"],
-correct:1
-},
+const text=article.innerText.toLowerCase();
 
-{
-q:"What is an exoplanet?",
-a:[
-"A planet outside our Solar System",
-"A cloud",
-"A comet"
-],
-correct:0
-},
+article.style.display=
+text.includes(query) ? "" : "none";
 
-{
-q:"What causes thunder?",
-a:[
-"Rapidly heated air",
-"The Moon",
-"Ocean waves"
-],
-correct:0
-},
+});
 
-{
-q:"How many neck vertebrae does a giraffe usually have?",
-a:["7","14","21"],
-correct:0
-}
-
-];
-
-let quizIndex=0;
-let quizScore=0;
-
-
-function startQuiz(){
-
-quizIndex=0;
-quizScore=0;
-
-quizQuestion();
-
-}
-
-
-function quizQuestion(){
-
-if(quizIndex>=quizQuestions.length){
-
-document.getElementById("gameArea")
-.innerHTML=`
-
-<div class="gameBox">
-
-<h1>🏆 Quiz complete!</h1>
-
-<h2>
-${quizScore}/${quizQuestions.length}
-</h2>
-
-<p>
-Great job!
-</p>
-
-<button
-class="smallBtn"
-onclick="clearGame()">
-Back
-</button>
-
-</div>
-
-`;
-
-return;
-
-}
-
-const q=quizQuestions[quizIndex];
-
-document.getElementById("gameArea")
-.innerHTML=`
-
-<div class="gameBox">
-
-<p>
-Question ${quizIndex+1}
-of ${quizQuestions.length}
-</p>
-
-<h2>${q.q}</h2>
-
-${q.a.map((answer,i)=>`
-
-<button
-class="answer"
-onclick="quizAnswer(${i})">
-${answer}
-</button>
-
-`).join("")}
-
-</div>
-
-`;
-
-}
-
-
-function quizAnswer(answer){
-
-if(
-answer===quizQuestions[quizIndex].correct
-){
-quizScore++;
-}
-
-quizIndex++;
-
-quizQuestion();
-
-}
-
-
-/* =========================
-   FACT OR FAKE
-========================= */
-
-function startFactGame(){
-
-const questions=[
-
-["Octopuses have three hearts.",true],
-
-["Giraffes have 40 neck vertebrae.",false],
-
-["Earth is covered mostly by ocean.",true],
-
-["An exoplanet is a planet outside our Solar System.",true]
-
-];
-
-let index=0;
-let score=0;
-
-function next(){
-
-if(index>=questions.length){
-
-document.getElementById("gameArea")
-.innerHTML=`
-
-<div class="gameBox">
-
-<h1>🃏 Finished!</h1>
-
-<h2>${score}/${questions.length}</h2>
-
-<button
-class="smallBtn"
-onclick="clearGame()">
-Back
-</button>
-
-</div>
-
-`;
-
-return;
-
-}
-
-document.getElementById("gameArea")
-.innerHTML=`
-
-<div class="gameBox">
-
-<h2>
-${questions[index][0]}
-</h2>
-
-<button
-class="answer"
-onclick="answerFact(true)">
-✅ FACT
-</button>
-
-<button
-class="answer"
-onclick="answerFact(false)">
-❌ FAKE
-</button>
-
-</div>
-
-`;
-
-}
-
-window.answerFact=function(choice){
-
-if(
-choice===questions[index][1]
-){
-score++;
-}
-
-index++;
-
-next();
-
-};
-
-next();
-
-}
-
-
-/* =========================
-   WORD SCRAMBLE
-========================= */
-
-function startScramble(){
-
-const words=[
-"RAINYNEWS",
-"SCIENCE",
-"PLANET",
-"ANIMAL",
-"ROCKET"
-];
-
-const word=
-words[Math.floor(Math.random()*words.length)];
-
-const scrambled=
-word
-.split("")
-.sort(()=>Math.random()-.5)
-.join("");
-
-document.getElementById("gameArea")
-.innerHTML=`
-
-<div class="gameBox">
-
-<h2>
-🔤 Unscramble this!
-</h2>
-
-<h1>
-${scrambled}
-</h1>
-
-<input
-id="scrambleAnswer"
-class="gameInput"
-placeholder="Type your answer"
->
-
-<button
-class="smallBtn"
-onclick="checkScramble('${word}')">
-Check answer
-</button>
-
-<p id="scrambleResult"></p>
-
-</div>
-
-`;
-
-}
-
-
-function checkScramble(word){
-
-const answer=
-document.getElementById("scrambleAnswer")
-.value
-.trim()
-.toUpperCase();
-
-document.getElementById("scrambleResult")
-.textContent=
-
-answer===word
-?"🎉 Correct!"
-:`❌ Not quite — it was ${word}.`;
-
-}
-
-
-/* =========================
-   EMOJI GAME
-========================= */
-
-function startEmoji(){
-
-const games=[
-
-["🚀🪐⭐","SPACE"],
-
-["🐝🌼🍯","BEES"],
-
-["⚽🥅🏆","SPORT"],
-
-["🎮👾🕹️","GAMING"]
-
-];
-
-let index=0;
-let score=0;
-
-function next(){
-
-if(index>=games.length){
-
-document.getElementById("gameArea")
-.innerHTML=`
-
-<div class="gameBox">
-
-<h1>😀 Finished!</h1>
-
-<h2>
-${score}/${games.length}
-</h2>
-
-<button
-class="smallBtn"
-onclick="clearGame()">
-Back
-</button>
-
-</div>
-
-`;
-
-return;
-
-}
-
-document.getElementById("gameArea")
-.innerHTML=`
-
-<div class="gameBox">
-
-<h1>
-${games[index][0]}
-</h1>
-
-<input
-id="emojiAnswer"
-class="gameInput"
-placeholder="What does it represent?"
->
-
-<button
-class="smallBtn"
-onclick="checkEmoji()">
-Guess
-</button>
-
-<p id="emojiResult"></p>
-
-</div>
-
-`;
-
-}
-
-window.checkEmoji=function(){
-
-const answer=
-document.getElementById("emojiAnswer")
-.value
-.trim()
-.toUpperCase();
-
-if(
-answer===games[index][1]
-){
-
-score++;
-
-document.getElementById("emojiResult")
-.textContent="🎉 Correct!";
-
-}else{
-
-document.getElementById("emojiResult")
-.textContent=
-`❌ It was ${games[index][1]}`;
-
-}
-
-index++;
-
-setTimeout(next,700);
-
-};
-
-next();
-
-}
-
-
-/* =========================
-   CLEAR GAME
-========================= */
-
-function clearGame(){
-
-document.getElementById("gameArea")
-.innerHTML="";
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-if(dark){
-
-toggleDark();
-
-}
-
-renderHome();
+});
 
 </script>
 
