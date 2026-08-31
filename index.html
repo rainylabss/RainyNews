@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>RainyNews 📰</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
 font-family:Arial,Helvetica,sans-serif;
@@ -39,6 +45,10 @@ font-size:25px;
 font-weight:900;
 }
 
+.logo span{
+color:#6574ff;
+}
+
 nav{
 display:flex;
 gap:10px;
@@ -54,11 +64,13 @@ background:#182033;
 color:white;
 font-weight:700;
 cursor:pointer;
+transition:.2s;
 }
 
 nav button:hover,
 button:hover{
 transform:translateY(-2px);
+opacity:.9;
 }
 
 .hero{
@@ -93,6 +105,10 @@ border-radius:35px;
 font-size:16px;
 box-shadow:0 10px 35px #0001;
 outline:none;
+}
+
+.search:focus{
+box-shadow:0 0 0 3px #6574ff33,0 10px 35px #0001;
 }
 
 .container{
@@ -213,6 +229,16 @@ font-size:24px;
 font-weight:900;
 }
 
+.no-results{
+display:none;
+background:white;
+border-radius:20px;
+padding:35px;
+text-align:center;
+color:#697386;
+margin-top:20px;
+}
+
 footer{
 background:#182033;
 color:white;
@@ -226,290 +252,842 @@ color:#aeb6c5;
 margin-top:7px;
 }
 
+/* STORY POPUP */
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+backdrop-filter:blur(8px);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:500;
+}
+
+.modal.show{
+display:flex;
+}
+
+.modal-box{
+background:white;
+width:min(650px,100%);
+max-height:85vh;
+overflow:auto;
+border-radius:25px;
+padding:30px;
+box-shadow:0 25px 70px #0004;
+animation:pop .2s ease;
+}
+
+@keyframes pop{
+from{
+transform:scale(.9);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.modal-close{
+float:right;
+background:#edf0f5;
+color:#182033;
+font-size:18px;
+padding:8px 12px;
+}
+
+.modal-icon{
+font-size:55px;
+margin-bottom:10px;
+}
+
+.modal-box h2{
+font-size:30px;
+margin-bottom:12px;
+}
+
+.modal-box p{
+color:#697386;
+margin-bottom:15px;
+}
+
+.modal-actions{
+margin-top:25px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
 @media(max-width:700px){
+
 .nav{
 flex-direction:column;
 }
+
 .hero{
 padding:55px 18px;
 }
+
+.modal-box{
+padding:22px;
 }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- HEADER -->
+
 <header>
+
 <div class="nav">
 
-<div class="logo">📰 RainyNews</div>
+<div class="logo">
+📰 <span>RainyNews</span>
+</div>
 
 <nav>
-<button onclick="location.href='https://rainylabs21.github.io/RainyDayLabs/'">🌧️ RainyDayLabs</button>
-<button onclick="location.href='https://rainylabs21.github.io/RainyEmps/'">💼 RainyEmps</button>
+
+<button onclick="openWebsite('https://rainylabss.github.io/RainyEmps/')">
+🎮 RainyEmps
+</button>
+
+<button onclick="openWebsite('https://rainylabss.github.io/RainyVerse/')">
+🌧️ RainyVerse
+</button>
+
 </nav>
 
 </div>
+
 </header>
+
+
+<!-- HERO -->
 
 <section class="hero">
 
-<div class="hero-icon">📰🌧️</div>
+<div class="hero-icon">
+📰🌧️
+</div>
 
-<h1>RainyNews</h1>
+<h1>
+RainyNews
+</h1>
 
-<p>Interesting stories. Trending topics. RainyDayLabs news.</p>
+<p>
+Interesting stories. Trending topics. RainyVerse news.
+</p>
 
 <input
 id="search"
 class="search"
+type="search"
 placeholder="🔎 Search RainyNews..."
+autocomplete="off"
 >
 
 </section>
 
+
+<!-- MAIN -->
+
 <main class="container">
+
+
+<!-- BREAKING -->
 
 <div class="breaking">
 🚨 BREAKING: Welcome to the upgraded RainyNews!
 </div>
 
+
+<!-- CATEGORIES -->
+
 <div class="categories">
 
-<button class="active" onclick="filterNews('all',this)">All</button>
-<button onclick="filterNews('tech',this)">💻 Technology</button>
-<button onclick="filterNews('games',this)">🎮 Gaming</button>
-<button onclick="filterNews('business',this)">💼 Business</button>
-<button onclick="filterNews('fun',this)">✨ Fun</button>
-<button onclick="filterNews('nature',this)">🌿 Nature</button>
+<button
+class="active"
+onclick="filterNews('all',this)">
+All
+</button>
+
+<button
+onclick="filterNews('tech',this)">
+💻 Technology
+</button>
+
+<button
+onclick="filterNews('games',this)">
+🎮 Gaming
+</button>
+
+<button
+onclick="filterNews('business',this)">
+💼 Business
+</button>
+
+<button
+onclick="filterNews('fun',this)">
+✨ Fun
+</button>
+
+<button
+onclick="filterNews('nature',this)">
+🌿 Nature
+</button>
 
 </div>
 
+
+<!-- FEATURED -->
+
 <section class="featured">
 
-<span class="tag">⭐ FEATURED</span>
+<span class="tag">
+⭐ FEATURED
+</span>
 
-<h2>RainyDayLabs keeps growing!</h2>
+<h2>
+RainyVerse keeps growing!
+</h2>
 
 <p>
-RainyDayLabs is expanding with games, news, baking,
+RainyVerse is expanding with games, news, baking,
 DIY, nature and loads of new ideas.
 </p>
 
 <br>
 
-<button onclick="readStory('RainyDayLabs keeps growing!')">
-Read story
+<button
+onclick="readStory(
+'RainyVerse keeps growing!',
+'🌧️',
+'RainyVerse is the home of a growing collection of creative projects, games, ideas and websites. RainyNews is part of that universe, bringing everything together in one place.'
+)">
+Read story →
 </button>
 
 </section>
 
-<h2 style="margin-bottom:20px">📰 Latest Stories</h2>
 
-<div class="grid" id="articles">
+<!-- STORIES -->
 
-<div class="article" data-category="games">
+<h2 style="margin-bottom:20px">
+📰 Latest Stories
+</h2>
 
-<div class="article-icon">🎮</div>
 
-<span class="tag">GAMING</span>
+<div
+class="grid"
+id="articles">
 
-<h3>Gaming is getting bigger</h3>
+
+<!-- STORY 1 -->
+
+<div
+class="article"
+data-category="games">
+
+<div class="article-icon">
+🎮
+</div>
+
+<span class="tag">
+GAMING
+</span>
+
+<h3>
+Gaming is getting bigger
+</h3>
 
 <p>
 Discover games, gaming ideas and projects worth checking out.
 </p>
 
-<button onclick="readStory('Gaming is getting bigger')">
-Read story
+<button
+onclick="readStory(
+'Gaming is getting bigger',
+'🎮',
+'Gaming continues to be one of the biggest ways people have fun online. Discover new games, creative gaming projects and ideas to try.'
+)">
+Read story →
 </button>
 
 </div>
 
 
-<div class="article" data-category="tech">
+<!-- STORY 2 -->
 
-<div class="article-icon">🤖</div>
+<div
+class="article"
+data-category="tech">
 
-<span class="tag">TECH</span>
+<div class="article-icon">
+🤖
+</div>
 
-<h3>AI keeps evolving</h3>
+<span class="tag">
+TECH
+</span>
+
+<h3>
+AI keeps evolving
+</h3>
 
 <p>
 Artificial intelligence continues to become part of everyday technology.
 </p>
 
-<button onclick="readStory('AI keeps evolving')">
-Read story
+<button
+onclick="readStory(
+'AI keeps evolving',
+'🤖',
+'Artificial intelligence is developing quickly and becoming part of more everyday apps, websites and creative projects.'
+)">
+Read story →
 </button>
 
 </div>
 
 
-<div class="article" data-category="business">
+<!-- STORY 3 -->
 
-<div class="article-icon">💼</div>
+<div
+class="article"
+data-category="business">
 
-<span class="tag">BUSINESS</span>
+<div class="article-icon">
+💼
+</div>
 
-<h3>Young entrepreneurs</h3>
+<span class="tag">
+BUSINESS
+</span>
+
+<h3>
+Young entrepreneurs
+</h3>
 
 <p>
 New businesses and online projects are being created every day.
 </p>
 
-<button onclick="readStory('Young entrepreneurs')">
-Read story
+<button
+onclick="readStory(
+'Young entrepreneurs',
+'💼',
+'Young creators are building websites, apps, businesses and online projects every day. RainyVerse is one example of a growing collection of creative projects.'
+)">
+Read story →
 </button>
 
 </div>
 
 
-<div class="article" data-category="fun">
+<!-- STORY 4 -->
 
-<div class="article-icon">🎲</div>
+<div
+class="article"
+data-category="fun">
 
-<span class="tag">FUN</span>
+<div class="article-icon">
+🎲
+</div>
 
-<h3>Things to do on a rainy day</h3>
+<span class="tag">
+FUN
+</span>
+
+<h3>
+Things to do on a rainy day
+</h3>
 
 <p>
 Games, baking, crafts and other ideas for rainy days.
 </p>
 
-<button onclick="readStory('Things to do on a rainy day')">
-Read story
+<button
+onclick="readStory(
+'Things to do on a rainy day',
+'🎲',
+'Rainy days do not have to be boring. Try baking something, playing a game, making a DIY project or exploring a new website.'
+)">
+Read story →
 </button>
 
 </div>
 
 
-<div class="article" data-category="nature">
+<!-- STORY 5 -->
 
-<div class="article-icon">🌿</div>
+<div
+class="article"
+data-category="nature">
 
-<span class="tag">NATURE</span>
+<div class="article-icon">
+🌿
+</div>
 
-<h3>Explore the outdoors</h3>
+<span class="tag">
+NATURE
+</span>
+
+<h3>
+Explore the outdoors
+</h3>
 
 <p>
 Discover interesting plants, animals and outdoor activities.
 </p>
 
-<button onclick="readStory('Explore the outdoors')">
-Read story
+<button
+onclick="readStory(
+'Explore the outdoors',
+'🌿',
+'The outdoors is full of things to discover. Explore nature, learn about animals and plants or simply enjoy a rainy-day walk.'
+)">
+Read story →
 </button>
 
 </div>
 
 
-<div class="article" data-category="tech">
+<!-- STORY 6 -->
 
-<div class="article-icon">📱</div>
+<div
+class="article"
+data-category="tech">
 
-<span class="tag">TECH</span>
+<div class="article-icon">
+📱
+</div>
 
-<h3>Apps are changing</h3>
+<span class="tag">
+TECH
+</span>
+
+<h3>
+Apps are changing
+</h3>
 
 <p>
 Modern apps are becoming more creative and interactive.
 </p>
 
-<button onclick="readStory('Apps are changing')">
-Read story
+<button
+onclick="readStory(
+'Apps are changing',
+'📱',
+'Apps are becoming more interactive, creative and personalised. New ideas are changing the way people use technology every day.'
+)">
+Read story →
+</button>
+
+</div>
+
+
+</div>
+
+
+<div
+class="no-results"
+id="noResults">
+
+<h2>
+😶 Nothing found
+</h2>
+
+<p style="margin-top:8px">
+Try searching for something else.
+</p>
+
+</div>
+
+
+<!-- TRENDING -->
+
+<section class="trending">
+
+<h2>
+🔥 Trending
+</h2>
+
+<br>
+
+
+<div class="trending-item">
+
+<span>
+<span class="number">1</span>
+🎮 RainyEmps
+</span>
+
+<strong>
+GAME
+</strong>
+
+</div>
+
+
+<div class="trending-item">
+
+<span>
+<span class="number">2</span>
+🌧️ RainyVerse
+</span>
+
+<strong>
+TRENDING
+</strong>
+
+</div>
+
+
+<div class="trending-item">
+
+<span>
+<span class="number">3</span>
+🤖 AI
+</span>
+
+<strong>
+TECH
+</strong>
+
+</div>
+
+
+<div class="trending-item">
+
+<span>
+<span class="number">4</span>
+🧁 Baking
+</span>
+
+<strong>
+FUN
+</strong>
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<h2>
+📰 RainyNews
+</h2>
+
+<p>
+Part of the RainyVerse universe 🌧️
+</p>
+
+<p style="margin-top:20px">
+© 2026 RainyNews
+</p>
+
+</footer>
+
+
+<!-- STORY MODAL -->
+
+<div
+class="modal"
+id="storyModal"
+onclick="closeModal(event)">
+
+<div
+class="modal-box"
+onclick="event.stopPropagation()">
+
+<button
+class="modal-close"
+onclick="closeStory()">
+✕
+</button>
+
+<div
+class="modal-icon"
+id="modalIcon">
+📰
+</div>
+
+<h2 id="modalTitle">
+Story
+</h2>
+
+<p id="modalText">
+</p>
+
+<div class="modal-actions">
+
+<button onclick="closeStory()">
+Close
+</button>
+
+<button
+onclick="showToast('More RainyNews stories coming soon! 📰')">
+⭐ More stories
 </button>
 
 </div>
 
 </div>
 
-
-<section class="trending">
-
-<h2>🔥 Trending</h2>
-
-<br>
-
-<div class="trending-item">
-<span><span class="number">1</span> 🎮 RainyEmps</span>
-<strong>GAME</strong>
 </div>
-
-<div class="trending-item">
-<span><span class="number">2</span> 🌧️ RainyDayLabs</span>
-<strong>TRENDING</strong>
-</div>
-
-<div class="trending-item">
-<span><span class="number">3</span> 🤖 AI</span>
-<strong>TECH</strong>
-</div>
-
-<div class="trending-item">
-<span><span class="number">4</span> 🧁 Baking</span>
-<strong>FUN</strong>
-</div>
-
-</section>
-
-</main>
-
-<footer>
-
-<h2>📰 RainyNews</h2>
-
-<p>Part of the RainyDayLabs universe 🌧️</p>
-
-<p style="margin-top:20px">© 2026 RainyNews</p>
-
-</footer>
 
 
 <script>
 
-function filterNews(category,button){
 
-document.querySelectorAll(".categories button")
-.forEach(b=>b.classList.remove("active"));
+/* =========================
+   WEBSITE NAVIGATION
+========================= */
 
-button.classList.add("active");
+function openWebsite(url){
 
-document.querySelectorAll(".article").forEach(article=>{
-
-if(category==="all" || article.dataset.category===category){
-article.style.display="";
-}else{
-article.style.display="none";
-}
-
-});
-
-}
-
-function readStory(title){
-
-alert(
-"📰 "+title+
-"\n\nThis is a RainyNews story preview. "+
-"More detailed stories can be added here later!"
+window.open(
+url,
+"_blank",
+"noopener,noreferrer"
 );
 
 }
 
-document.getElementById("search").addEventListener("input",function(){
 
-const query=this.value.toLowerCase();
+/* =========================
+   STORY FILTERING
+========================= */
 
-document.querySelectorAll(".article").forEach(article=>{
+let currentCategory = "all";
 
-const text=article.innerText.toLowerCase();
 
-article.style.display=
-text.includes(query) ? "" : "none";
+function filterNews(category,button){
+
+currentCategory = category;
+
+document
+.querySelectorAll(".categories button")
+.forEach(b=>{
+b.classList.remove("active");
+});
+
+button.classList.add("active");
+
+applyFilters();
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
+applyFilters();
 
 });
 
+
+function applyFilters(){
+
+const query =
+document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+let visible = 0;
+
+
+document
+.querySelectorAll(".article")
+.forEach(article=>{
+
+const category =
+article.dataset.category;
+
+const text =
+article.innerText.toLowerCase();
+
+const categoryMatch =
+currentCategory === "all" ||
+category === currentCategory;
+
+const searchMatch =
+query === "" ||
+text.includes(query);
+
+if(categoryMatch && searchMatch){
+
+article.style.display = "";
+
+visible++;
+
+}else{
+
+article.style.display = "none";
+
+}
+
 });
+
+
+const noResults =
+document.getElementById("noResults");
+
+noResults.style.display =
+visible === 0
+? "block"
+: "none";
+
+}
+
+
+/* =========================
+   STORY MODAL
+========================= */
+
+function readStory(title,icon,text){
+
+document
+.getElementById("modalTitle")
+.textContent = title;
+
+document
+.getElementById("modalIcon")
+.textContent = icon;
+
+document
+.getElementById("modalText")
+.textContent = text;
+
+document
+.getElementById("storyModal")
+.classList.add("show");
+
+document.body.style.overflow = "hidden";
+
+}
+
+
+function closeStory(){
+
+document
+.getElementById("storyModal")
+.classList.remove("show");
+
+document.body.style.overflow = "";
+
+}
+
+
+function closeModal(event){
+
+if(event.target.id === "storyModal"){
+
+closeStory();
+
+}
+
+}
+
+
+/* =========================
+   ESCAPE KEY
+========================= */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+if(event.key === "Escape"){
+
+closeStory();
+
+}
+
+});
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+
+function showToast(message){
+
+clearTimeout(toastTimer);
+
+let toast =
+document.getElementById("toast");
+
+if(!toast){
+
+toast =
+document.createElement("div");
+
+toast.id = "toast";
+
+toast.style.position = "fixed";
+toast.style.bottom = "25px";
+toast.style.left = "50%";
+toast.style.transform =
+"translateX(-50%)";
+
+toast.style.background =
+"#182033";
+
+toast.style.color = "white";
+
+toast.style.padding =
+"14px 20px";
+
+toast.style.borderRadius =
+"15px";
+
+toast.style.zIndex = "1000";
+
+toast.style.boxShadow =
+"0 10px 30px #0004";
+
+document.body.appendChild(toast);
+
+}
+
+toast.textContent = message;
+
+toastTimer =
+setTimeout(()=>{
+
+toast.remove();
+
+},2500);
+
+}
 
 </script>
 
